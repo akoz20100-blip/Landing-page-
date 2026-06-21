@@ -1,0 +1,308 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   JAMAL — Linen Atelier · Design tokens (single source of truth)
+   Mirrors docs/DESIGN_TOKENS.md. One accent only: warm gold.
+   ============================================================ */
+:root {
+  /* Color ramp (dark identity) */
+  --ink: #0a0a0a;
+  --surface: #111111;
+  --line: #222222;
+  --cream: #f5f2ec;
+  --muted: #8a8a8a;
+  /* The single brand accent (from the JAMAL wordmark). */
+  --accent: #c09a62;
+  --accent-soft: #d8b884;
+
+  /* Fluid type scale */
+  --text-hero: clamp(3rem, 12vw, 12rem);
+  --text-h2: clamp(2rem, 6vw, 4.25rem);
+  --text-h3: clamp(1.5rem, 3.4vw, 2.5rem);
+  --text-lead: clamp(1.05rem, 1.4vw, 1.4rem);
+
+  /* Motion */
+  --dur-fast: 200ms;
+  --dur-normal: 400ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+/* Keyboard focus only — never on mouse click. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ---- Lenis required styles ---- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer components {
+  /* Editorial kicker / eyebrow label */
+  .kicker {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* Underline-on-hover link (animated from the left). */
+  .link-underline {
+    position: relative;
+    display: inline-block;
+    color: var(--cream);
+    transition: color var(--dur-fast) ease;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-normal) var(--ease-out-expo);
+  }
+  .link-underline:hover {
+    color: var(--accent);
+  }
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  /* Pill button — outline → accent fill on hover. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.6rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: transparent;
+    transition: background var(--dur-normal) var(--ease-out-expo),
+      color var(--dur-normal) var(--ease-out-expo),
+      border-color var(--dur-normal) var(--ease-out-expo);
+  }
+  .btn:hover,
+  .btn:focus-visible {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--ink);
+  }
+  .btn .btn__arrow {
+    transition: transform var(--dur-normal) var(--ease-out-expo);
+  }
+  .btn:hover .btn__arrow {
+    transform: translateX(4px);
+  }
+}
+
+@layer utilities {
+  /* Feather the portrait video plate's edges so the studio backdrop melts into
+     the near-black page (kills the seam where the rectangle meets the bg). */
+  .hero-plate {
+    -webkit-mask-image: linear-gradient(
+        90deg,
+        transparent 0,
+        #000 13%,
+        #000 87%,
+        transparent 100%
+      ),
+      linear-gradient(0deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(
+        90deg,
+        transparent 0,
+        #000 13%,
+        #000 87%,
+        transparent 100%
+      ),
+      linear-gradient(0deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+    mask-composite: intersect;
+  }
+
+  /* Cinematic vignette to seam the portrait hero plate into the page. */
+  .hero-vignette {
+    background: radial-gradient(
+        120% 75% at 50% 42%,
+        transparent 38%,
+        rgba(10, 10, 10, 0.55) 72%,
+        var(--ink) 100%
+      ),
+      linear-gradient(
+        90deg,
+        var(--ink) 0%,
+        transparent 18%,
+        transparent 82%,
+        var(--ink) 100%
+      );
+  }
+
+  /* Fine film grain for atmosphere (compositor-friendly, fixed). */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* ---- Custom cursor (fine pointer + motion only) ---- */
+.cursor-ring,
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 9999px;
+  mix-blend-mode: difference;
+  opacity: 0;
+}
+/* Promote to a compositor layer only while the custom cursor is actually live
+   (class added in the fine-pointer + motion branch) — never on touch/reduce. */
+body.cursor-custom .cursor-ring,
+body.cursor-custom .cursor-dot {
+  will-change: transform;
+}
+.cursor-ring {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid var(--cream);
+}
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--cream);
+}
+.cursor-label {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cream);
+  white-space: nowrap;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.cursor-ring.has-label .cursor-label {
+  opacity: 1;
+  transform: scale(0.32);
+}
+body.cursor-custom,
+body.cursor-custom * {
+  cursor: none !important;
+}
+/* Keep a real caret on text inputs so future form fields stay usable. */
+body.cursor-custom input,
+body.cursor-custom textarea,
+body.cursor-custom select,
+body.cursor-custom [contenteditable] {
+  cursor: text !important;
+}
+
+.marquee-track {
+  will-change: transform;
+}
+
+/* Hero scroll-cue: a gold tick travels down the hairline. */
+@keyframes cue-travel {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(266%);
+  }
+}
+.hero-cue__dot {
+  animation: cue-travel 2.2s var(--ease-out-expo) infinite;
+}
+
+/* Anchor targets land below the fixed nav on native (reduced-motion) jumps. */
+section[id],
+footer[id] {
+  scroll-margin-top: 84px;
+}
+
+/* Gallery: native horizontal swipe by default; locked when GSAP pins it.
+   will-change is held only while the scrub pin is active (not on mobile). */
+.gallery-viewport.is-pinned {
+  overflow: hidden;
+}
+.gallery-viewport.is-pinned .gallery-track {
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------
+   Accessibility: respect reduced-motion. JS (gsap.matchMedia)
+   also disables scrubs/pins; this is the CSS belt-and-braces.
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .grain {
+    display: none;
+  }
+}
