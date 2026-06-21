@@ -58,42 +58,42 @@ export default function ScrollVideo({
 
       // Full motion: pin + scrub the rotation.
       mm.add(MEDIA.motionOk, () => {
-        let cleanupMeta: (() => void) | undefined;
+        const state = { t: 0 };
 
-        const build = () => {
-          const duration = video.duration || 1;
-          const state = { t: 0 };
-
-          ScrollTrigger.create({
-            trigger: wrap,
-            start: 'top top',
-            end: `+=${scrubLengthVh}%`,
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
+        // Create the pin IMMEDIATELY so its 300vh spacer exists from first paint.
+        // Building it later (on loadedmetadata) pushes every section below down by
+        // 300vh AFTER their pins cached their start — which left the gallery pin
+        // engaging ~2600px early and opening a huge empty void on desktop. The
+        // spacer length is scrubLengthVh (independent of the clip), so it's stable
+        // now; the video.currentTime seek simply waits for duration to be known.
+        ScrollTrigger.create({
+          trigger: wrap,
+          start: 'top top',
+          end: `+=${scrubLengthVh}%`,
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const duration = video.duration || 0;
+            if (duration) {
               const target = self.progress * duration;
               // Don't hammer currentTime with sub-frame deltas (~24fps step).
               if (Math.abs(state.t - target) > 1 / 24) {
                 state.t = target;
                 video.currentTime = target;
               }
-              onProgressRef.current?.(self.progress);
-            },
-          });
+            }
+            onProgressRef.current?.(self.progress);
+          },
+        });
 
-          ScrollTrigger.refresh();
-        };
-
-        if (video.readyState >= 1) {
-          build();
-        } else {
-          video.addEventListener('loadedmetadata', build, { once: true });
-          cleanupMeta = () => video.removeEventListener('loadedmetadata', build);
+        // Metadata doesn't change the spacer; just recalc once to be safe.
+        const onMeta = () => ScrollTrigger.refresh();
+        if (video.readyState < 1) {
+          video.addEventListener('loadedmetadata', onMeta, { once: true });
+          return () => video.removeEventListener('loadedmetadata', onMeta);
         }
-
-        return () => cleanupMeta?.();
       });
 
       // Reduced motion: hold the front frame, no pin, no scrub.

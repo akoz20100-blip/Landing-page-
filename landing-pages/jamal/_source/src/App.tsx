@@ -52,6 +52,16 @@ export default function App() {
     return () => cancelAnimationFrame(raf);
   }, [loaded]);
 
+  // Once every image/video has finished loading, recalc all pin geometry — late
+  // asset loads (hero clip, eager gallery frames) can change section heights and
+  // would otherwise leave pinned sections measured against a stale layout.
+  useEffect(() => {
+    if (document.readyState === 'complete') return;
+    const onLoad = () => ScrollTrigger.refresh();
+    window.addEventListener('load', onLoad);
+    return () => window.removeEventListener('load', onLoad);
+  }, []);
+
   useReveal(scope);
 
   return (
