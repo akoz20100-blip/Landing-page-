@@ -3,6 +3,22 @@
 Update after EVERY iteration. This file is the source of truth that survives
 `/compact`. Before compacting context, write your full current state here first.
 
+## Status: LIVE — desktop black-void bugs fixed + VERIFIED on the live site via Playwright
+
+User reported (with screenshots) two desktop scroll voids. Diagnosed by driving a REAL
+headless browser (Playwright + system Chrome) against the live URL and logging a per-scroll
+section map (see preview-raf-gotcha memory) — the only way to see pinned/scrubbed desktop
+scroll (Claude_Preview can't). Two root causes, both fixed and re-verified live:
+1. **Hero bleeding through Showcase / Showcase void** — Showcase was a transparent section
+   pinned with `pinSpacing:false`. Fix: `bg-ink` (opaque) + CSS `position:sticky` image
+   column (md:sticky top-0 h-screen self-start) + copy 160vh→130vh.
+2. **Huge empty void before the gallery** — the hero 360 pin was built late (on the video's
+   `loadedmetadata`), adding its 300vh spacer AFTER the gallery pin cached its start, so the
+   gallery engaged ~2600px early and left a ~1700px void then re-rendered in normal flow.
+   Fix: create the hero pin IMMEDIATELY (stable spacer; currentTime seek waits for duration)
+   + `ScrollTrigger.refresh()` on window `load`. Post-fix section map is clean & sequential:
+   hero → atelier → collection → details → gallery(pinned) → contact, zero `mid=root` frames.
+
 ## Status: LIVE on GitHub Pages — re-themed to the REAL oxblood/burgundy brand identity
 
 ### Brand re-theme (2026-06-22, from the official brand image the user supplied)
