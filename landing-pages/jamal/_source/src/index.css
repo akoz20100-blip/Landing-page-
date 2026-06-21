@@ -4,18 +4,21 @@
 
 /* ============================================================
    JAMAL — Linen Atelier · Design tokens (single source of truth)
-   Mirrors docs/DESIGN_TOKENS.md. One accent only: warm gold.
+   Mirrors docs/DESIGN_TOKENS.md. Oxblood / burgundy identity drawn
+   straight from the brand mark — one accent only: antique rose.
    ============================================================ */
 :root {
-  /* Color ramp (dark identity) */
-  --ink: #0a0a0a;
-  --surface: #111111;
-  --line: #222222;
-  --cream: #f5f2ec;
-  --muted: #8a8a8a;
-  /* The single brand accent (from the JAMAL wordmark). */
-  --accent: #c09a62;
-  --accent-soft: #d8b884;
+  /* Color ramp — deep linen burgundy */
+  --ink: #1a0b10;
+  --surface: #2a1620;
+  --line: #422835;
+  --cream: #f3ece5;
+  --muted: #a98a90;
+  /* The single brand accent — antique rose, lifted from the oxblood. */
+  --accent: #c97f86;
+  --accent-soft: #dda3a8;
+  /* Deep linen burgundy for atmosphere / gradients. */
+  --wine: #4a1f2a;
 
   /* Fluid type scale */
   --text-hero: clamp(3rem, 12vw, 12rem);
@@ -41,7 +44,12 @@ html {
 
 body {
   margin: 0;
-  background: var(--ink);
+  background-color: var(--ink);
+  /* Faint oxblood wash so the page reads as deep wine, not neutral black. */
+  background-image:
+    radial-gradient(90% 55% at 50% -8%, rgba(74, 31, 42, 0.4), transparent 60%),
+    radial-gradient(80% 50% at 100% 100%, rgba(74, 31, 42, 0.22), transparent 55%);
+  background-attachment: fixed;
   color: var(--cream);
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 400;
@@ -177,9 +185,10 @@ html.lenis body {
     background: radial-gradient(
         120% 75% at 50% 42%,
         transparent 38%,
-        rgba(10, 10, 10, 0.55) 72%,
+        rgba(26, 11, 16, 0.5) 70%,
         var(--ink) 100%
       ),
+      radial-gradient(78% 48% at 50% 6%, rgba(74, 31, 42, 0.4), transparent 62%),
       linear-gradient(
         90deg,
         var(--ink) 0%,

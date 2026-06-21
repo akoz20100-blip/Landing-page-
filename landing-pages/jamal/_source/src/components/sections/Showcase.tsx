@@ -135,7 +135,7 @@ export default function Showcase() {
           className="absolute -bottom-10 right-6 hidden h-44 w-32 border border-line object-cover shadow-2xl shadow-black/60 md:block lg:h-56 lg:w-40"
         />
 
-        <span className="kicker absolute left-6 top-6 [text-shadow:0_1px_10px_rgba(10,10,10,0.7)]">
+        <span className="kicker absolute left-6 top-6 [text-shadow:0_1px_10px_rgba(26,11,16,0.7)]">
           The piece
         </span>
       </div>

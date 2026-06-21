@@ -3,6 +3,23 @@
 Update after EVERY iteration. This file is the source of truth that survives
 `/compact`. Before compacting context, write your full current state here first.
 
+## Status: LIVE on GitHub Pages (akoz20100-blip.github.io/landing-pages/jamal/) — gallery black-fix shipped
+
+### Desktop gallery black-fix (user-reported on live site)
+User saw black around the desktop gallery images. Three compounding causes, all fixed:
+1. The clip-path curtain reveal turned figures pure black until revealed (worsened by
+   scrub:1 lag) → REMOVED. Images now always visible with a subtle always-on horizontal
+   parallax (Studio-Freight/duyucare feel), baseline scale 1.16 so the shift shows no gap.
+2. `loading="lazy"` gallery images rendered as the near-black `--surface #111` until loaded
+   → switched to `loading="eager"` (all 7 share one vertical band; bounded cost).
+3. Figures `md:h-[72vh]` left a big vertical letterbox → enlarged to `md:h-[84vh]`
+   (intro/outro panels too).
+Note: the headless Claude_Preview can't visually verify the pinned+scrubbed gallery
+(frozen rAF during pin; screenshots only paint at scrollY 0; raster doesn't composite
+under the `#root` transform trick). Verified instead via DOM state: imgs load (eager,
+naturalWidth>0), `opacity:1`/visible, `elementFromPoint` hits the IMG, no clip, parallax
+bounded ±26px. Real-hardware confirmation is the user's.
+
 ## Status: COMPLETE — DoD 100% + final elevation audit GO (zero CRITICAL/HIGH), all MEDIUMs remediated
 
 ### Elevation pass (to match/exceed duyucare reference)

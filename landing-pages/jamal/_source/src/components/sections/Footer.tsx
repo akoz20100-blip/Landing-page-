@@ -84,7 +84,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-20 flex flex-col items-start justify-between gap-8 border-t border-line pt-10 md:flex-row md:items-end">
-          <Logo withTagline className="h-16 w-auto text-accent" />
+          <Logo withTagline className="h-16 w-auto text-cream" />
           <div className="flex flex-col items-start md:items-end">
             <a
               href="#hero"

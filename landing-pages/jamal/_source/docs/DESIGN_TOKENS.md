@@ -1,22 +1,25 @@
-# Design Tokens — Dark Identity
+# Design Tokens — Oxblood / Burgundy Identity
 
 Source of truth for color, type, spacing, motion. Mirror these in
-`tailwind.config.js` and `src/index.css`. Reference vibe: pcg.sa (near-black,
-single accent) + duyucare (calm editorial spacing).
+`tailwind.config.js` and `src/index.css`. Identity drawn from the JAMAL brand
+mark (deep wine linen, cream serif wordmark); calm editorial spacing à la duyucare.
 
 ## Color
 
 | Token | Value | Use |
 |---|---|---|
-| `ink` | `#0A0A0A` | Page background (near-black, not pure #000) |
-| `surface` | `#111111` | Cards, image wells |
-| `line` | `#222222` | Hairline borders, grid gaps |
-| `cream` | `#F5F2EC` | Primary text / "white" |
-| `muted` | `#8A8A8A` | Secondary text |
-| `accent` | `var(--accent)` → `#E5462B` | One accent only. Links/hover/price. Change in `src/index.css`. |
+| `ink` | `#1A0B10` | Page background (deep burgundy-black) |
+| `surface` | `#2A1620` | Cards, image wells (burgundy) |
+| `line` | `#422835` | Hairline borders, grid gaps (burgundy) |
+| `cream` | `#F3ECE5` | Primary text / wordmark ("white") |
+| `muted` | `#A98A90` | Secondary text (dusty mauve) |
+| `accent` | `var(--accent)` → `#C97F86` | One accent only — antique rose. Kickers/links/hover/price. |
+| `accent-soft` | `#DDA3A8` | Lighter rose for highlights |
+| `wine` | `#4A1F2A` | Deep burgundy for atmosphere (body wash, hero glow) |
 
-Rule: **one accent color**. Everything else is the grayscale dark ramp. (pcg.sa
-used red `#FF0004` — pick your own.)
+Rule: **one accent color** (antique rose), everything else is the tonal burgundy
+ramp. Cream text + cream wordmark on deep oxblood. Change the accent only in
+`src/index.css` `:root` (and mirror the hardcoded ramp in `tailwind.config.js`).
 
 ## Type
 

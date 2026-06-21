@@ -4,13 +4,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#0A0A0A',
-        surface: '#111111',
-        line: '#222222',
-        cream: '#F5F2EC',
-        muted: '#8A8A8A',
+        ink: '#1A0B10',
+        surface: '#2A1620',
+        line: '#422835',
+        cream: '#F3ECE5',
+        muted: '#A98A90',
         accent: 'var(--accent)',
         'accent-soft': 'var(--accent-soft)',
+        wine: 'var(--wine)',
       },
       fontFamily: {
         display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
