@@ -136,3 +136,96 @@ studio backdrop) re-encoded with dense keyframes.
 
 ## Next up
 - Done. Optional future: real product/checkout, more lookbook frames, sequence-canvas fallback if iOS scrub stutters.
+
+---
+
+## 2026-06-22 — v2 polish LOOP 1/3 (8 approved fixes)
+Applied the approved feel/a11y/perf fixes; production build passes clean (tsc -b && vite build, 0 errors).
+
+- **F1 (type pairing)** `src/index.css`: removed the catch-all `@layer utilities` override that forced
+  `letter-spacing:0` on all `.tracking-*`; restored intentional values (tight -0.02em, wide 0.06em,
+  widest 0.22em, widest2 0.3em). `.kicker` now 0.2em + 0.76rem; `.btn` 0.12em; `.cursor-label` 0.1em.
+  Restores the wide-eyebrow vs tight-Didone tension.
+- **RF-01 (gallery hover)** `Gallery.tsx`: wrapped each `<img>` in an inner div that carries the
+  `group-hover:scale-[1.06]` (compositor transform). GSAP still drives the `<img>` (scale/x) during the
+  pinned scrub, so hover composes with — never fights — the inline transform. Caption span + index lift
+  (`translate-y-2 opacity-70 → group-hover:translate-y-0 opacity-100`).
+- **GALLERY-LOAD (perf)** `Gallery.tsx`: added `w`/`h` to Shot + each SHOT (portrait 1200x2133, wide
+  editorial 2133x1200), pass width/height; first figure `loading="eager"`, rest `lazy`; kept decoding async.
+- **A11Y-1 (caption scrim)** `Gallery.tsx`: deepened/extended figcaption scrim
+  `from-ink via-ink/70 to-transparent` + `pt-10 pb-4`; accent index number stays >4.5:1.
+- **A11Y-2 (manifesto heading)** `Manifesto.tsx`: `aria-labelledby="manifesto-heading"` on `#atelier`,
+  `id` on the kicker. Section now named + in the heading outline. No visual change.
+- **F3 (empty panel)** `Manifesto.tsx`: filled the blank `luxury-panel` with a cropped detail-01.webp
+  fabric crop (1100x1375, lazy) + caption "European linen · garment-washed".
+- **F6 (hero echo)** `Hero.tsx`: repurposed the right-rail chip (kicker "The piece" + materials line)
+  so it no longer repeats the H1; kept the vertical cue as the single scroll affordance.
+- **A11Y-3 (hero focus ring)** `Hero.tsx`: removed `focus:outline-none` from the H1; global
+  `:focus:not(:focus-visible)` still suppresses the programmatic-focus flash, keyboard ring restored.
+
+Preserved: Lenis↔ScrollTrigger sync, ScrollVideo eager pin-spacer + currentTime throttle, single-accent
+discipline, palette tokens, reduced-motion architecture, gsap.context()+matchMedia teardown in every section.
+
+---
+
+## 2026-06-22 — v2 Review LOOP 1/3 (7 approved fixes applied; build clean)
+
+- **A1 (hero scrub smoothness)** Re-encoded `public/assets/model-360.mp4` to all-intra
+  (`-g 1 -keyint_min 1 -sc_threshold 0 -crf 20 -preset slow -movflags +faststart`): keyframes
+  41/241 → 241/241, moov-before-mdat preserved (faststart kept). Size 1.4MB → 4.2MB (accepted
+  trade for gapless currentTime seeks). `ScrollVideo.tsx` throttle relaxed 1/24 → 1/48s so the
+  rotation resolves at sub-frame smoothness now that every frame is seekable.
+- **A2 (hero H1 legibility)** Added `.hero-scrim` lower-left radial (`index.css`) and a
+  `pointer-events-none absolute inset-0 -z-[1]` scrim inside the Hero overlay, behind the H1.
+  Counters the vignette washing the cream headline. Localized, no layout impact.
+- **A3 (LCP decouple)** `Preloader.tsx` rebuilt: counter now driven by REAL load progress
+  (creep to 90% on mount, finish + lift on `window load`, power2.in easing) instead of a fixed
+  1.9s fake tween. 2.4s fallback guards a hung asset. Curtain no longer holds hero LCP hostage.
+  Reduced-motion branch untouched.
+- **A4 (gallery hover-swap) + A6 (video preload)** `Gallery.tsx`: optional `hoverSrc` on Shot;
+  "the set — front/back" (05/06) cross-fade to each other via an opacity-only second `<img>`
+  (`group-hover:opacity-100`). GSAP parallax now collects BOTH `.gallery-img` per figure
+  (imgGroups) so the hover layer shares the baseline scale/parallax — no edge gap. `index.html`
+  adds `<link rel="preload" as="video">` for the hero clip.
+- **A5 (gallery keyboard + contrast)** `Gallery.tsx`: viewport `onKeyDown` maps Arrow keys to
+  Lenis scroll (page scroll = horizontal browse when pinned) or native `scrollBy` when Lenis is
+  off (mobile/reduced-motion). WCAG 2.1.1. Index number forced to `opacity-100` (was `opacity-70`
+  baseline → low contrast); caption text keeps its hover lift.
+- **A7 (Bodoni 600 / skip link / delete shirt)** `index.html` Google Fonts URL appends Bodoni
+  Moda 600. `App.tsx` adds a `sr-only`→`focus-visible:not-sr-only` "Skip to content" link
+  targeting new `<main id="main-content">` (WCAG 2.4.1). Deleted orphaned
+  `public/assets/product-shirt.webp` (zero references in src/ or index.html).
+
+Build: `tsc -b && vite build` → clean, 57 modules, 0 TS errors. Verified generated CSS contains
+`.sr-only`/`not-sr-only` + `.hero-scrim`; dist html carries the video preload; no shirt asset ships.
+Preserved: Lenis↔ScrollTrigger sync, accent #C97F86 single-accent discipline, reduced-motion
+architecture, gsap.context()+matchMedia teardown, faststart.
+
+---
+
+## 2026-06-22 — FINAL loop v2 (surgical a11y + craft fixes)
+
+Applied 3 approved fixes:
+
+- **A1** — Removed Bodoni 300 faux-synthesis. `font-light` → `font-normal` on
+  `Marquee.tsx:74` (running-band span) and `Nav.tsx:171` (mobile drawer link).
+  `grep -rn font-light src/` now returns zero. index.html loads Bodoni Moda 400;500
+  only; both lines now pair font-display with a loaded weight (no algorithmic stroke
+  shaving on the two most kinetic serif surfaces). Honors LOCKED Bodoni 400/500-only.
+- **A2** — Gallery arrow-key nav now branches on the desktop pin state
+  (`viewport.classList.contains('is-pinned')`) instead of mere `lenisStore.current`
+  existence. Below 768px with a keyboard + Lenis live, arrows now move the native
+  horizontal lookbook (`viewport.scrollBy({left})`) instead of scrolling the page
+  vertically — closes a WCAG 2.1.1 gap. Desktop pinned path unchanged (is-pinned →
+  Lenis nudge). Did NOT touch the Lenis↔ScrollTrigger sync.
+- **A3** — Manifesto editorial statement is now an `<h2 id="manifesto-heading">`
+  (was `<p>`); section `aria-labelledby` repoints to it; id removed from the kicker.
+  ref type updated `HTMLParagraphElement` → `HTMLHeadingElement`. Section now
+  contributes a heading to the outline (WCAG 2.4.6 / 1.3.1) — H-key nav no longer
+  skips Atelier. SplitType operates on the ref by reference, tag-agnostic (split.revert
+  unaffected); className byte-identical, no visual/motion change.
+
+Build: `tsc -b && vite build` → clean, 57 modules, 0 TS errors.
+Preserved: Lenis↔ScrollTrigger sync, ScrollVideo 300vh pin + 1/24 throttle, no video
+preload re-add / no re-encode, single antique-rose accent, reduced-motion architecture,
+gsap.context()+matchMedia teardown, Nav drawer a11y, Showcase sticky pin.

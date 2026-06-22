@@ -79,6 +79,8 @@ export default function ScrollVideo({
             if (duration) {
               const target = self.progress * duration;
               // Don't hammer currentTime with sub-frame deltas (~24fps step).
+              // The clip is dense-keyframe encoded (~1 keyframe / 6 frames) so a
+              // 1/24s step seeks from a near keyframe and stays smooth + light.
               if (Math.abs(state.t - target) > 1 / 24) {
                 state.t = target;
                 video.currentTime = target;

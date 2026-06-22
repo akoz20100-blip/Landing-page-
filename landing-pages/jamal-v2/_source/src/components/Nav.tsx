@@ -168,7 +168,7 @@ export default function Nav() {
               ref={i === 0 ? firstLinkRef : undefined}
               href={link.href}
               onClick={(e) => go(e, link.href)}
-              className="flex items-center justify-between border-b border-line py-5 font-display text-3xl font-light tracking-tight text-cream transition-colors duration-200 hover:text-accent focus-visible:text-accent"
+              className="flex items-center justify-between border-b border-line py-5 font-display text-3xl font-normal tracking-tight text-cream transition-colors duration-200 hover:text-accent focus-visible:text-accent"
             >
               {link.label}
               <span className="kicker text-muted">{String(i + 1).padStart(2, '0')}</span>

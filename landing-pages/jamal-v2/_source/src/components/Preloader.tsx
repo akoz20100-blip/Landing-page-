@@ -26,43 +26,70 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
     const ctx = gsap.context(() => {
       const counter = { v: 0 };
-      const tl = gsap.timeline({ onComplete: () => onComplete?.() });
 
       gsap.set(['.preloader__mark', '.preloader__meta'], { autoAlpha: 0, y: 24 });
 
-      tl.to('.preloader__mark', {
-        autoAlpha: 1,
-        y: 0,
-        duration: 1,
-        ease: 'power3.out',
-      })
+      // Counter is driven by REAL page-load progress (power2.in easing toward
+      // the live `document.readyState`/load milestone) rather than a fixed
+      // duration, so we never hold the curtain — and therefore the hero LCP —
+      // past the point the assets are actually ready.
+      const intro = gsap.timeline();
+      intro
+        .to('.preloader__mark', { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out' })
         .to(
           '.preloader__meta',
-          { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out' },
-          '-=0.6',
-        )
-        .to(
-          counter,
-          {
-            v: 100,
-            duration: 1.9,
-            ease: 'power2.inOut',
-            onUpdate: () => setCount(Math.round(counter.v)),
-          },
-          0.2,
-        )
-        .to('.preloader__bar', { scaleX: 1, duration: 1.9, ease: 'power2.inOut' }, 0.2)
-        .to('.preloader__mark, .preloader__meta', {
-          autoAlpha: 0,
-          y: -20,
-          duration: 0.5,
-          ease: 'power2.in',
-        })
-        .to(
-          root.current,
-          { yPercent: -100, duration: 1, ease: 'power4.inOut' },
-          '-=0.15',
+          { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' },
+          '-=0.45',
         );
+
+      const setProgress = (target: number) => {
+        gsap.to(counter, {
+          v: target,
+          duration: 0.4,
+          ease: 'power2.in',
+          overwrite: true,
+          onUpdate: () => {
+            const v = Math.round(counter.v);
+            setCount(v);
+            gsap.set('.preloader__bar', { scaleX: v / 100 });
+          },
+        });
+      };
+
+      const exit = () => {
+        gsap
+          .timeline({ onComplete: () => onComplete?.() })
+          .to('.preloader__mark, .preloader__meta', {
+            autoAlpha: 0,
+            y: -20,
+            duration: 0.4,
+            ease: 'power2.in',
+          })
+          .to(root.current, { yPercent: -100, duration: 0.8, ease: 'power4.inOut' }, '-=0.1');
+      };
+
+      // Track real readiness: creep to 90% on DOM interactive, finish + exit on
+      // window load. A short fallback guarantees we never stall on a hung asset.
+      setProgress(90);
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        setProgress(100);
+        gsap.delayedCall(0.45, exit);
+      };
+
+      if (document.readyState === 'complete') {
+        finish();
+      } else {
+        window.addEventListener('load', finish, { once: true });
+      }
+      const fallback = gsap.delayedCall(2.4, finish);
+
+      return () => {
+        window.removeEventListener('load', finish);
+        fallback.kill();
+      };
     }, root);
 
     return () => ctx.revert();

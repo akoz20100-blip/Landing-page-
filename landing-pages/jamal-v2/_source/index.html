@@ -36,7 +36,9 @@
       rel="stylesheet"
     />
 
-    <!-- First paint of the hero: poster before the video decodes. -->
+    <!-- First paint of the hero: poster before the video decodes. The clip itself
+         streams (preload=metadata + range requests) rather than being eagerly
+         preloaded — keeps the LCP window clear of the multi-MB hero video. -->
     <link rel="preload" as="image" href="%BASE_URL%assets/model-360-poster.jpg" fetchpriority="high" />
   </head>
   <body>

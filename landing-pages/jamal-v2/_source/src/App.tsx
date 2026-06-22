@@ -66,6 +66,13 @@ export default function App() {
 
   return (
     <div ref={scope} className="relative overflow-hidden">
+      {/* WCAG 2.4.1 — bypass the fixed nav / hero straight to the content. */}
+      <a
+        href="#main-content"
+        className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:left-4 focus-visible:top-4 focus-visible:z-[200] focus-visible:bg-ink focus-visible:px-4 focus-visible:py-2 focus-visible:text-sm focus-visible:font-semibold focus-visible:tracking-wide focus-visible:text-cream focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+      >
+        Skip to content
+      </a>
       {!loaded && <Preloader onComplete={() => setLoaded(true)} />}
       <div
         className="pointer-events-none fixed inset-y-0 left-[var(--gutter)] z-40 hidden w-px bg-line/70 md:block"
@@ -77,7 +84,7 @@ export default function App() {
       />
       <CustomCursor />
       <Nav />
-      <main>
+      <main id="main-content">
         <Hero />
         <Manifesto />
         <Showcase />

@@ -71,7 +71,7 @@ export default function Marquee() {
     <div className="flex shrink-0 items-center">
       {WORDS.map((w) => (
         <span key={w} className="flex shrink-0 items-center">
-          <span className="px-[0.4em] font-display text-[clamp(2rem,6vw,5.5rem)] font-light tracking-tight text-cream">
+          <span className="px-[0.4em] font-display text-[clamp(2rem,6vw,5.5rem)] font-normal tracking-tight text-cream">
             {w}
           </span>
           <span className="px-[0.4em] text-[clamp(1rem,2vw,2rem)] text-accent">&#9702;</span>

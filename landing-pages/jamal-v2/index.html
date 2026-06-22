@@ -36,10 +36,12 @@
       rel="stylesheet"
     />
 
-    <!-- First paint of the hero: poster before the video decodes. -->
+    <!-- First paint of the hero: poster before the video decodes. The clip itself
+         streams (preload=metadata + range requests) rather than being eagerly
+         preloaded — keeps the LCP window clear of the multi-MB hero video. -->
     <link rel="preload" as="image" href="/landing-pages/jamal-v2/assets/model-360-poster.jpg" fetchpriority="high" />
-    <script type="module" crossorigin src="/landing-pages/jamal-v2/assets/index-DHYfxQkA.js"></script>
-    <link rel="stylesheet" crossorigin href="/landing-pages/jamal-v2/assets/index-QIy0K2oY.css">
+    <script type="module" crossorigin src="/landing-pages/jamal-v2/assets/index-m4LClaVI.js"></script>
+    <link rel="stylesheet" crossorigin href="/landing-pages/jamal-v2/assets/index-D7qnXsjs.css">
   </head>
   <body>
     <div id="root"></div>

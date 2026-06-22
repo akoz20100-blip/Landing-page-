@@ -110,9 +110,9 @@ html.lenis body {
   /* Editorial kicker / eyebrow label */
   .kicker {
     font-family: 'Manrope', system-ui, sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.76rem;
     font-weight: 600;
-    letter-spacing: 0;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--accent);
   }
@@ -154,7 +154,7 @@ html.lenis body {
     border-radius: 0;
     font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 0;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--cream);
     background:
@@ -182,11 +182,17 @@ html.lenis body {
 }
 
 @layer utilities {
-  .tracking-tight,
-  .tracking-wide,
-  .tracking-widest,
+  .tracking-tight {
+    letter-spacing: -0.02em;
+  }
+  .tracking-wide {
+    letter-spacing: 0.06em;
+  }
+  .tracking-widest {
+    letter-spacing: 0.22em;
+  }
   .tracking-widest2 {
-    letter-spacing: 0;
+    letter-spacing: 0.3em;
   }
 
   .section-frame {
@@ -288,6 +294,17 @@ html.lenis body {
     mask-composite: intersect;
   }
 
+  /* Localized scrim anchored to the lower-left, under the hero H1, so the cream
+     headline keeps contrast where the radial vignette lightens the plate. */
+  .hero-scrim {
+    background: radial-gradient(
+      120% 95% at 0% 100%,
+      rgba(26, 11, 16, 0.78) 0%,
+      rgba(26, 11, 16, 0.42) 38%,
+      transparent 68%
+    );
+  }
+
   /* Cinematic vignette to seam the portrait hero plate into the page. */
   .hero-vignette {
     background: radial-gradient(
@@ -351,7 +368,7 @@ body.cursor-custom .cursor-dot {
   font-family: 'Manrope', system-ui, sans-serif;
   font-size: 9px;
   font-weight: 500;
-  letter-spacing: 0;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--cream);
   white-space: nowrap;

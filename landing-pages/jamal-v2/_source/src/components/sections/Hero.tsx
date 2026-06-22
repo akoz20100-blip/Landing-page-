@@ -92,6 +92,12 @@ export default function Hero() {
           ref={overlayRef}
           className="relative flex h-full w-full flex-col justify-between px-6 pb-7 pt-6 md:px-10 md:pb-10 md:pt-8"
         >
+          {/* Lower-left scrim: keeps the cream H1 legible where the radial
+              vignette lightens the plate. Behind the overlay content. */}
+          <div
+            className="hero-scrim pointer-events-none absolute inset-0 -z-[1]"
+            aria-hidden
+          />
           <div
             className="pointer-events-none absolute left-1/2 top-1/2 hidden aspect-square w-[min(62vw,42rem)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-line/70 md:block"
             aria-hidden
@@ -112,7 +118,7 @@ export default function Hero() {
             <h1
               id="hero-heading"
               tabIndex={-1}
-              className="max-w-[10ch] font-display text-[clamp(4rem,14vw,11rem)] font-normal leading-[0.78] tracking-tight text-cream focus:outline-none"
+              className="max-w-[10ch] font-display text-[clamp(4rem,14vw,11rem)] font-normal leading-[0.78] tracking-tight text-cream"
             >
               <span className="block overflow-hidden">
                 <span className="hero-line block">
@@ -128,9 +134,9 @@ export default function Hero() {
 
             <div className="hidden w-[18rem] flex-col items-end gap-4 md:flex">
               <div className="hero-chip luxury-panel px-5 py-4 text-right">
-                <span className="kicker text-muted">Scroll to rotate</span>
+                <span className="kicker text-muted">The piece</span>
                 <p className="mt-2 text-sm leading-relaxed text-cream">
-                  One garment. Every angle.
+                  Garment-washed European linen · 360° in the light.
                 </p>
               </div>
               <div className="hero-cue flex shrink-0 items-center gap-4 pb-1">
