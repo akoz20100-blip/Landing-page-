@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal-v2/sitemap.xml
