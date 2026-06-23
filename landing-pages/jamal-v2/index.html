@@ -1,6 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
+    <!-- Flash-of-wrong-direction fix: set lang+dir from localStorage before React mounts -->
+    <script>
+      (function () {
+        try {
+          var l = localStorage.getItem('jamal-lang') || 'en';
+          document.documentElement.lang = l;
+          document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+        } catch (e) {}
+      })();
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#1A0B10" />
@@ -10,35 +21,65 @@
       name="description"
       content="JAMAL is a linen atelier. One garment, considered from every angle — relaxed tailoring in garment-washed European linen."
     />
+    <link rel="canonical" href="https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal-v2/" />
+    <link rel="alternate" hreflang="en" href="https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal-v2/" />
+    <link rel="alternate" hreflang="ar" href="https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal-v2/" />
+    <link rel="alternate" hreflang="x-default" href="https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal-v2/" />
 
     <!-- Open Graph / Twitter -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_SA" />
     <meta property="og:title" content="JAMAL — Linen Atelier" />
-    <meta
-      property="og:description"
-      content="One garment, considered from every angle. Relaxed tailoring in garment-washed European linen."
-    />
+    <meta property="og:description" content="One garment, considered from every angle. Relaxed tailoring in garment-washed European linen." />
     <meta property="og:image" content="https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal-v2/assets/og_image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="JAMAL Atelier Set — European linen shirt and trouser in warm cream" />
+    <meta property="og:url" content="https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal-v2/" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="JAMAL — Linen Atelier" />
-    <meta
-      name="twitter:description"
-      content="One garment, considered from every angle. Linen, the way it should feel."
-    />
+    <meta name="twitter:description" content="One garment, considered from every angle. Linen, the way it should feel." />
     <meta name="twitter:image" content="https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal-v2/assets/og_image.jpg" />
 
-    <!-- Fonts: Bodoni Moda (editorial display) + Manrope (body); only the weights used. -->
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ClothingStore",
+      "name": "JAMAL Linen Atelier",
+      "description": "A small studio making one garment — the Atelier Set — in garment-washed European linen.",
+      "url": "https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal-v2/",
+      "image": "https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal-v2/assets/og_image.jpg",
+      "address": { "@type": "PostalAddress", "addressLocality": "Lisbon", "addressCountry": "PT" }
+    }
+    </script>
+
+    <!-- Fonts: non-blocking preconnect first, then async load -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Manrope:wght@400;500;600&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Manrope:wght@400;500;600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
-    <!-- Preload hero poster from CDN -->
-    <link rel="preload" as="image" href="https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal-v2/assets/model-360-poster.jpg" fetchpriority="high" />
-    <script type="module" crossorigin src="/Landing-page-/landing-pages/jamal-v2/assets/index-CWhwmwcW.js"></script>
-    <link rel="stylesheet" crossorigin href="/Landing-page-/landing-pages/jamal-v2/assets/index-DL3N8SX7.css">
+    <!-- Preload hero poster from CDN (critical LCP asset) -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal-v2/assets/model-360-poster.jpg"
+      fetchpriority="high"
+    />
+    <script type="module" crossorigin src="/Landing-page-/landing-pages/jamal-v2/assets/index-UrSuewJO.js"></script>
+    <link rel="stylesheet" crossorigin href="/Landing-page-/landing-pages/jamal-v2/assets/index-DHSHs7Mi.css">
   </head>
   <body>
     <div id="root"></div>
