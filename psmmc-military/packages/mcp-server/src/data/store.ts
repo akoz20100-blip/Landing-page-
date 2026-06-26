@@ -74,49 +74,66 @@ export class DataStore {
     if (!ref) return undefined;
     const direct = this.storeById.get(ref);
     if (direct) return direct;
-    const lower = ref.trim().toLowerCase();
-    const exact = this.stores.filter(
-      (s) => s.name.toLowerCase() === lower || s.nameAr?.toLowerCase() === lower,
-    );
-    if (exact.length === 1) return exact[0];
-    const partial = this.stores.filter(
-      (s) =>
-        s.name.toLowerCase().includes(lower) ||
-        (s.nameAr ?? "").toLowerCase().includes(lower),
-    );
-    if (partial.length === 1) return partial[0];
-    if (partial.length > 1) {
-      throw new Error(
-        `Store reference "${ref}" is ambiguous; matches: ${partial
-          .map((s) => `${s.name} (${s.id})`)
-          .join(", ")}`,
-      );
-    }
-    return undefined;
+    return resolveByTiers(this.stores, ref, (s) => [s.name, s.nameAr], (s) => `${s.name} (${s.id})`, "Store");
   }
 
-  /** Same resolution strategy for planners (id, name, partial). */
+  /** Same resolution strategy for planners (id, name, section). */
   resolvePlanner(ref?: string): Planner | undefined {
     if (!ref) return undefined;
     const direct = this.plannerById.get(ref);
     if (direct) return direct;
-    const lower = ref.trim().toLowerCase();
-    const matches = this.planners.filter(
-      (p) =>
-        p.name.toLowerCase().includes(lower) ||
-        (p.nameAr ?? "").toLowerCase().includes(lower) ||
-        (p.section ?? "").toLowerCase().includes(lower),
+    return resolveByTiers(
+      this.planners,
+      ref,
+      (p) => [p.name, p.nameAr, p.section],
+      (p) => `${p.name} (${p.id})`,
+      "Planner",
     );
-    if (matches.length === 1) return matches[0];
-    if (matches.length > 1) {
+  }
+}
+
+/** Split a label into lowercase word tokens (Latin + Arabic). */
+function tokenize(s: string): string[] {
+  // Split on anything that is not a Latin letter/digit or an Arabic-block char.
+  return s
+    .toLowerCase()
+    .split(/[^a-z0-9\u0600-\u06ff]+/i)
+    .filter(Boolean);
+}
+
+/**
+ * Resolve a free-text reference against a list using increasingly loose tiers:
+ * exact field equality -> whole-word token match -> substring. The first tier
+ * that yields any candidate decides; a single candidate resolves, multiple
+ * throw an ambiguity error, zero falls through to the next tier. Preferring
+ * whole-word over substring avoids mid-word false positives.
+ */
+function resolveByTiers<T>(
+  items: T[],
+  ref: string,
+  fieldsOf: (x: T) => (string | undefined)[],
+  describe: (x: T) => string,
+  kind: string,
+): T | undefined {
+  const lower = ref.trim().toLowerCase();
+  const fields = (x: T) => fieldsOf(x).filter((v): v is string => Boolean(v));
+
+  const tiers: Array<(x: T) => boolean> = [
+    (x) => fields(x).some((v) => v.toLowerCase() === lower),
+    (x) => fields(x).some((v) => tokenize(v).includes(lower)),
+    (x) => fields(x).some((v) => v.toLowerCase().includes(lower)),
+  ];
+
+  for (const test of tiers) {
+    const hits = items.filter(test);
+    if (hits.length === 1) return hits[0];
+    if (hits.length > 1) {
       throw new Error(
-        `Planner reference "${ref}" is ambiguous; matches: ${matches
-          .map((p) => `${p.name} (${p.id})`)
-          .join(", ")}`,
+        `${kind} reference "${ref}" is ambiguous; matches: ${hits.map(describe).join(", ")}`,
       );
     }
-    return undefined;
   }
+  return undefined;
 }
 
 export function reorderKey(medicationId: string, storeId: string): string {

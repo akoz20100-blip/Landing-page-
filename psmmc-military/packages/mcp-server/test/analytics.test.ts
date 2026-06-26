@@ -125,3 +125,52 @@ describe("searchDashboard", () => {
     expect(r.results.some((x) => x.type === "medication")).toBe(true);
   });
 });
+
+describe("regression: review-team findings", () => {
+  it("reorderSuggestions reports the TRUE below-reorder count even when capped", () => {
+    const full = A.reorderSuggestions(store, { asOf: ASOF, limit: 1000 });
+    const capped = A.reorderSuggestions(store, { asOf: ASOF, limit: 1 });
+    expect(full.itemsBelowReorder).toBeGreaterThan(1);
+    expect(capped.itemsBelowReorder).toBe(full.itemsBelowReorder); // count not truncated
+    expect(capped.results.length).toBe(1); // list is capped
+    expect(capped.truncated).toBe(true);
+  });
+
+  it("withdrawalsBreakdown by month keeps the MOST RECENT months when limited", () => {
+    const all = A.withdrawalsBreakdown(store, { groupBy: "month" });
+    const recent = A.withdrawalsBreakdown(store, { groupBy: "month", limit: 3 });
+    expect(all.results.length).toBeGreaterThan(3);
+    expect(recent.results.map((r) => r.group)).toEqual(all.results.slice(-3).map((r) => r.group));
+  });
+
+  it("rejects a reversed date range instead of returning empty", () => {
+    expect(() => A.topWithdrawnMedications(store, { from: "2026-03-01", to: "2026-01-01" })).toThrow(
+      /Invalid date range/,
+    );
+    expect(() => A.withdrawalsBreakdown(store, { groupBy: "department", from: "2026-03-01", to: "2026-01-01" })).toThrow(
+      /Invalid date range/,
+    );
+  });
+
+  it("throws on an ambiguous medication reference rather than silently picking one", () => {
+    // Seed contains both Insulin Glargine and Insulin Aspart.
+    expect(() => A.stockStatus(store, { medicationRef: "insulin" })).toThrow(/ambiguous/i);
+    // An exact name still resolves.
+    const s = A.stockStatus(store, { medicationRef: "Insulin Glargine" });
+    expect("error" in s).toBe(false);
+  });
+
+  it("rejects an empty expiry window (includeExpired=false, no withinDays)", () => {
+    expect(() => A.plannerExpiryRanking(store, { asOf: ASOF, includeExpired: false })).toThrow(/criteria/i);
+    expect(() => A.expiryBatches(store, { asOf: ASOF, includeExpired: false })).toThrow(/criteria/i);
+  });
+
+  it("expiryBatches total value covers ALL matching batches, not just the shown page", () => {
+    const r = A.expiryBatches(store, { asOf: ASOF, withinDays: 9999, limit: 5 });
+    expect(r.shown).toBeLessThanOrEqual(5);
+    expect(r.matchedBatches).toBeGreaterThan(r.shown);
+    // Total reflects every matched batch, so it exceeds the sum of just the shown rows.
+    const shownSum = r.results.reduce((s, x) => s + x.valueSAR, 0);
+    expect(r.totalValueSAR).toBeGreaterThan(shownSum);
+  });
+});

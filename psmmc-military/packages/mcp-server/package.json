@@ -11,7 +11,6 @@
   },
   "files": [
     "dist",
-    "data",
     "README.md"
   ],
   "engines": {
@@ -19,6 +18,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build",
     "start": "node dist/index.js --stdio",
     "start:stdio": "node dist/index.js --stdio",
     "start:http": "node dist/index.js --http",

@@ -16,6 +16,21 @@ export interface DateRange {
   to?: string;
 }
 
+/** Reject a transposed date range so the caller gets an error, not a silent empty result. */
+function assertRange(from?: string, to?: string): void {
+  if (from && to && from > to) {
+    throw new Error(`Invalid date range: from (${from}) is after to (${to}).`);
+  }
+}
+
+/** Describe the expiry window actually applied, from the real criteria (not just withinDays). */
+function expiryWindowLabel(includeExpired: boolean, withinDays?: number): string {
+  if (includeExpired && withinDays != null) return `expired + expiring within ${withinDays} days`;
+  if (includeExpired) return "already expired";
+  if (withinDays != null) return `expiring within ${withinDays} days`;
+  return "no expiry window selected";
+}
+
 /** High-level snapshot so the model knows what data exists and over what window. */
 export function dataOverview(store: DataStore, asOf = todayISO()) {
   const dates = store.withdrawals.map((w) => w.date).sort();
@@ -51,6 +66,7 @@ export interface TopWithdrawnOptions extends DateRange {
 
 /** Top medications by withdrawal/issue volume, optionally for one store. */
 export function topWithdrawnMedications(store: DataStore, opts: TopWithdrawnOptions = {}) {
+  assertRange(opts.from, opts.to);
   const target = store.resolveStore(opts.storeRef);
   const limit = clampLimit(opts.limit, 10);
   const by = opts.by ?? "quantity";
@@ -121,6 +137,9 @@ export function plannerExpiryRanking(store: DataStore, opts: ExpiryOptions = {})
   const metric = opts.metric ?? "value";
   const includeExpired = opts.includeExpired ?? true;
   const limit = clampLimit(opts.limit, store.planners.length);
+  if (!includeExpired && opts.withinDays == null) {
+    throw new Error("No expiry criteria selected: set withinDays or keep includeExpired=true.");
+  }
 
   const agg = new Map<string, { qty: number; value: number; batches: number; items: Set<string> }>();
   for (const b of store.batches) {
@@ -165,7 +184,7 @@ export function plannerExpiryRanking(store: DataStore, opts: ExpiryOptions = {})
   return {
     asOf,
     store: target ? { id: target.id, name: target.name } : "ALL_STORES",
-    window: opts.withinDays != null ? `expired + expiring within ${opts.withinDays} days` : "already expired",
+    window: expiryWindowLabel(includeExpired, opts.withinDays),
     rankedBy: metric,
     results: rows,
   };
@@ -177,15 +196,25 @@ export function expiryBatches(store: DataStore, opts: ExpiryOptions = {}) {
   const target = store.resolveStore(opts.storeRef);
   const limit = clampLimit(opts.limit, 50);
   const includeExpired = opts.includeExpired ?? true;
+  if (!includeExpired && opts.withinDays == null) {
+    throw new Error("No expiry criteria selected: set withinDays or keep includeExpired=true.");
+  }
 
-  const rows = store.batches
-    .filter((b) => {
-      if (target && b.storeId !== target.id) return false;
-      const days = daysBetween(asOf, b.expiryDate);
-      const isExpired = days < 0;
-      const isExpiringSoon = opts.withinDays != null && days >= 0 && days <= opts.withinDays;
-      return (includeExpired && isExpired) || isExpiringSoon;
-    })
+  // Total value at risk is summed over ALL matching batches (from raw products,
+  // rounded once), independent of the display limit so the headline figure is
+  // never understated by truncation.
+  let totalRawValue = 0;
+  const matching = store.batches.filter((b) => {
+    if (target && b.storeId !== target.id) return false;
+    const days = daysBetween(asOf, b.expiryDate);
+    const isExpired = days < 0;
+    const isExpiringSoon = opts.withinDays != null && days >= 0 && days <= opts.withinDays;
+    const hit = (includeExpired && isExpired) || isExpiringSoon;
+    if (hit) totalRawValue += batchValue(b);
+    return hit;
+  });
+
+  const rows = matching
     .map((b) => {
       const med = store.medicationById.get(b.medicationId);
       const days = daysBetween(asOf, b.expiryDate);
@@ -208,8 +237,10 @@ export function expiryBatches(store: DataStore, opts: ExpiryOptions = {}) {
   return {
     asOf,
     store: target ? { id: target.id, name: target.name } : "ALL_STORES",
-    window: opts.withinDays != null ? `expired + expiring within ${opts.withinDays} days` : "already expired",
-    totalValueSAR: round2(rows.reduce((s, r) => s + r.valueSAR, 0)),
+    window: expiryWindowLabel(includeExpired, opts.withinDays),
+    matchedBatches: matching.length,
+    shown: rows.length,
+    totalValueSAR: round2(totalRawValue),
     results: rows,
   };
 }
@@ -237,7 +268,7 @@ export function reorderSuggestions(store: DataStore, opts: ReorderOptions = {}) 
     onHand.set(key, (onHand.get(key) ?? 0) + b.qtyOnHand);
   }
 
-  const rows = store.reorder
+  const below = store.reorder
     .filter((r) => !target || r.storeId === target.id)
     .map((r) => {
       const effective = onHand.get(`${r.medicationId}::${r.storeId}`) ?? 0;
@@ -259,13 +290,17 @@ export function reorderSuggestions(store: DataStore, opts: ReorderOptions = {}) 
       };
     })
     .filter((r) => r.belowReorder)
-    .sort((a, b) => a.effectiveOnHand - b.effectiveOnHand)
-    .slice(0, limit);
+    .sort((a, b) => a.effectiveOnHand - b.effectiveOnHand);
 
+  // Count the true total BEFORE truncating the displayed list, so the headline
+  // "items below reorder" is accurate even when results are capped.
+  const rows = below.slice(0, limit);
   return {
     asOf,
     store: target ? { id: target.id, name: target.name } : "ALL_STORES",
-    itemsBelowReorder: rows.length,
+    itemsBelowReorder: below.length,
+    shown: rows.length,
+    truncated: below.length > rows.length,
     results: rows,
   };
 }
@@ -393,6 +428,7 @@ export interface BreakdownOptions extends DateRange {
  * for ad-hoc management questions ("issues by department", "by ATC class", ...).
  */
 export function withdrawalsBreakdown(store: DataStore, opts: BreakdownOptions) {
+  assertRange(opts.from, opts.to);
   const target = store.resolveStore(opts.storeRef);
   const limit = clampLimit(opts.limit, 25);
 
@@ -430,12 +466,17 @@ export function withdrawalsBreakdown(store: DataStore, opts: BreakdownOptions) {
     scanned += 1;
   }
 
-  const sorted = [...agg.entries()]
-    .map(([group, v]) => ({ group, totalQty: v.qty, transactions: v.txns }))
-    .sort((a, b) =>
-      opts.groupBy === "month" ? a.group.localeCompare(b.group) : b.totalQty - a.totalQty,
-    )
-    .slice(0, limit);
+  const mapped = [...agg.entries()].map(([group, v]) => ({
+    group,
+    totalQty: v.qty,
+    transactions: v.txns,
+  }));
+  // For months, keep the MOST RECENT N (then display chronologically). For every
+  // other dimension, keep the top N by volume.
+  const sorted =
+    opts.groupBy === "month"
+      ? mapped.sort((a, b) => a.group.localeCompare(b.group)).slice(-limit)
+      : mapped.sort((a, b) => b.totalQty - a.totalQty).slice(0, limit);
 
   return {
     store: target ? { id: target.id, name: target.name } : "ALL_STORES",
@@ -487,12 +528,30 @@ function resolveMedication(store: DataStore, ref: string) {
   const lower = ref.trim().toLowerCase();
   const byCode = store.medications.find((m) => m.code.toLowerCase() === lower);
   if (byCode) return byCode;
+
+  // Prefer an exact generic/brand name match before falling back to substrings.
+  const exact = store.medications.filter(
+    (m) => m.genericName.toLowerCase() === lower || (m.brandName ?? "").toLowerCase() === lower,
+  );
+  if (exact.length === 1) return exact[0];
+
   const matches = store.medications.filter(
     (m) =>
       m.genericName.toLowerCase().includes(lower) ||
       (m.brandName ?? "").toLowerCase().includes(lower),
   );
-  return matches[0];
+  if (matches.length === 1) return matches[0];
+  if (matches.length > 1) {
+    // Mirror resolveStore/resolvePlanner: surface ambiguity instead of silently
+    // picking the first match and presenting it as authoritative.
+    throw new Error(
+      `Medication reference "${ref}" is ambiguous; matches: ${matches
+        .slice(0, 8)
+        .map((m) => `${m.genericName}${m.strength ? " " + m.strength : ""} (${m.code})`)
+        .join(", ")}${matches.length > 8 ? ", …" : ""}. Use the exact name or code.`,
+    );
+  }
+  return undefined;
 }
 
 function clampLimit(value: number | undefined, fallback: number, max = 1000): number {

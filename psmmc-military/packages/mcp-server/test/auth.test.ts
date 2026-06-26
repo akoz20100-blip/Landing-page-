@@ -32,13 +32,17 @@ describe("extractToken", () => {
     const req = mockReq({ headers: { "x-api-key": "key-xyz" } });
     expect(extractToken(req)).toBe("key-xyz");
   });
-  it("reads a ?token= query param", () => {
+  it("does NOT read a ?token= query param (leak-prone, unsupported)", () => {
     const req = mockReq({ query: { token: "qtok" } });
-    expect(extractToken(req)).toBe("qtok");
+    expect(extractToken(req)).toBeUndefined();
   });
   it("falls back to the path token", () => {
     const req = mockReq({});
     expect(extractToken(req, "path-token")).toBe("path-token");
+  });
+  it("prefers the Authorization header over the path token", () => {
+    const req = mockReq({ headers: { authorization: "Bearer hdr" } });
+    expect(extractToken(req, "path-token")).toBe("hdr");
   });
   it("returns undefined when nothing is supplied", () => {
     expect(extractToken(mockReq({}))).toBeUndefined();

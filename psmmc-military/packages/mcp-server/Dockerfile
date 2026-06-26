@@ -3,8 +3,8 @@
 # Run:    docker run -p 8787:8787 -e PSMMC_MCP_TOKEN=your-secret psmmc-mcp
 FROM node:20-slim AS build
 WORKDIR /app
-COPY package.json package-lock.json* ./
-RUN npm install
+COPY package.json package-lock.json ./
+RUN npm ci
 COPY tsconfig.json ./
 COPY src ./src
 RUN npm run build
@@ -12,8 +12,8 @@ RUN npm run build
 FROM node:20-slim
 WORKDIR /app
 ENV NODE_ENV=production
-COPY package.json package-lock.json* ./
-RUN npm install --omit=dev
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 COPY --from=build /app/dist ./dist
 # No data files are bundled: the server reproduces the deterministic demo dataset
 # in-memory at startup. Mount a volume and set PSMMC_DATA_DIR to serve real data.
