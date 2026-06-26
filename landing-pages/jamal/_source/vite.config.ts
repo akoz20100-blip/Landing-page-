@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// Served from a sub-path on GitHub Pages (/landing-pages/jamal/) in production,
-// but from root during local dev so the preview server stays at "/".
-export default defineConfig(({ command }) => ({
-  base: command === 'build' ? '/landing-pages/jamal/' : '/',
+// Relative base so the build works under any sub-path on GitHub Pages
+// (the repo is served at /Landing-page-/landing-pages/jamal/) without hard-coding
+// the repo prefix. Assets resolve relative to index.html via asset.ts + BASE_URL.
+export default defineConfig({
+  base: './',
   plugins: [react()],
   server: { port: 5173 },
-}));
+});
