@@ -1,9 +1,11 @@
 const fs=require("fs");
-const SC="/tmp/claude-0/-home-user-Landing-page-/2b29c7dd-d17c-508f-90e9-fc2feb0469cd/scratchpad/";
-const T=SC+"atheer-template.html";
-const FD="/home/user/Landing-page-/landing-pages/eddah/fonts/thmanyah/";
-const OUTDIR="/home/user/Landing-page-/landing-pages/atheer/";
+const path=require("path");
+const SRC=__dirname+path.sep;                                   // _source/
+const T=SRC+"template.html";                                    // edit this
+const FD=path.resolve(__dirname,"../../eddah/fonts/thmanyah")+path.sep;
+const OUTDIR=path.resolve(__dirname,"..")+path.sep;             // landing-pages/atheer/
 const VID=OUTDIR+"assets/hero.mp4";
+const IMGDIR=OUTDIR+"assets/img/";                             // Atheer real images live here
 const tpl=fs.readFileSync(T,"utf8");
 const fontFiles={__F_SANS_L__:"thmanyahsans-Light.woff2",__F_SANS_R__:"thmanyahsans-Regular.woff2",__F_SANS_M__:"thmanyahsans-Medium.woff2",__F_SANS_B__:"thmanyahsans-Bold.woff2",__F_SERIF_R__:"thmanyahserifdisplay-Regular.woff2",__F_SERIF_B__:"thmanyahserifdisplay-Bold.woff2"};
 const base="https://akoz20100-blip.github.io/Landing-page-/landing-pages/eddah/fonts/thmanyah/";
