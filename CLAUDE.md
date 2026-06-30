@@ -50,6 +50,7 @@
 | جمال | `landing-pages/jamal/` | Vite + React | `…/Landing-page-/landing-pages/jamal/` |
 | جمال v2 | `landing-pages/jamal-v2/` | Vite + React | `…/Landing-page-/landing-pages/jamal-v2/` |
 | عُدّة | `landing-pages/eddah/` | Next.js (static export) | `…/Landing-page-/landing-pages/eddah/` |
+| أثير الزهراني | `landing-pages/atheer/` | HTML ثابت (`_source/template.html` + `build.js`) | `…/Landing-page-/landing-pages/atheer/` |
 
 > مجلدات `eddah/sadim-*` هي تجارب ألوان (نسخ) وليست مشاريع مستقلة — لا تُضاف للمعرض.
 

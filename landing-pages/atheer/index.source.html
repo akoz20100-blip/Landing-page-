@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<!-- Reference build: external Thmanyah fonts + relative video + relative WebP images. -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0e0b0e" />
+<title>أثير الزهراني — تصميم بصري يوقف التمرير من أول ثانية</title>
+<meta name="description" content="أثير الزهراني — مصمِّمة بصرية بالذكاء الاصطناعي: فيديو، صور احترافية، شعارات وهوية، تصميم داخلي، وتحسين الصور. هوية لعلامتك بلمسة وذوق." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* خط ثمانية / Thmanyah */
+@font-face{font-family:'Thmanyah Sans';src:url(https://akoz20100-blip.github.io/Landing-page-/landing-pages/eddah/fonts/thmanyah/thmanyahsans-Light.woff2) format('woff2');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Thmanyah Sans';src:url(https://akoz20100-blip.github.io/Landing-page-/landing-pages/eddah/fonts/thmanyah/thmanyahsans-Regular.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Thmanyah Sans';src:url(https://akoz20100-blip.github.io/Landing-page-/landing-pages/eddah/fonts/thmanyah/thmanyahsans-Medium.woff2) format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Thmanyah Sans';src:url(https://akoz20100-blip.github.io/Landing-page-/landing-pages/eddah/fonts/thmanyah/thmanyahsans-Bold.woff2) format('woff2');font-weight:600 700;font-style:normal;font-display:swap}
+@font-face{font-family:'Thmanyah Serif Display';src:url(https://akoz20100-blip.github.io/Landing-page-/landing-pages/eddah/fonts/thmanyah/thmanyahserifdisplay-Regular.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Thmanyah Serif Display';src:url(https://akoz20100-blip.github.io/Landing-page-/landing-pages/eddah/fonts/thmanyah/thmanyahserifdisplay-Bold.woff2) format('woff2');font-weight:600 700;font-style:normal;font-display:swap}
+
+:root{
+  --bg:#0e0b0e;--surface:rgba(255,255,255,.045);--surface-2:rgba(255,255,255,.075);--line:rgba(255,255,255,.1);
+  --cream:#f6eef1;--muted:rgba(246,238,241,.62);--faint:rgba(246,238,241,.4);
+  --rose:#ef8ab0;--rose-deep:#e2638f;--gold:#f3c98a;--peach:#ffb89b;--accent:#ef8ab0;
+  --radius:18px;--radius-lg:26px;--radius-pill:9999px;
+  --section:clamp(72px,10vw,128px);--gutter:clamp(20px,5vw,64px);
+  --font-head:'Thmanyah Serif Display',serif;--font-body:'Thmanyah Sans',system-ui,sans-serif;
+  --hs:normal;--ht:normal;--ease:cubic-bezier(.16,1,.3,1);--spring:cubic-bezier(.34,1.56,.64,1);
+}
+html.lang-en{--font-head:'Instrument Serif',Georgia,serif;--font-body:'Barlow',system-ui,sans-serif;--hs:italic;--ht:-.02em}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{color:var(--cream);font-family:var(--font-body);font-weight:400;line-height:1.8;overflow-x:hidden;min-height:100vh;
+  background:radial-gradient(60% 42% at 82% 0,rgba(239,138,176,.12),transparent 60%),radial-gradient(50% 40% at 8% 8%,rgba(243,201,138,.07),transparent 60%),var(--bg);}
+html.lang-en body{line-height:1.65}
+h1,h2,h3,.display{font-family:var(--font-head);font-style:var(--hs);letter-spacing:var(--ht);font-weight:400;line-height:1.08;color:var(--cream)}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+section{padding-block:var(--section);position:relative;z-index:1}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:var(--gutter)}
+.glass{position:relative;background:var(--surface);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:var(--radius)}
+
+/* nav */
+.nav{position:fixed;inset-block-start:16px;inset-inline:0;z-index:60;display:flex;justify-content:center;pointer-events:none}
+.nav__inner{pointer-events:auto;display:flex;align-items:center;gap:clamp(12px,3vw,28px);padding:10px 14px 10px 22px;border-radius:999px;background:rgba(14,11,14,.6);backdrop-filter:blur(16px);border:1px solid var(--line);max-width:calc(100% - 24px)}
+.nav__brand{font-family:var(--font-head);font-style:var(--hs);font-size:1.16rem;white-space:nowrap}
+.nav__links{display:flex;gap:22px;font-size:.86rem;color:var(--muted)}
+.nav__links a{transition:color .3s}.nav__links a:hover{color:var(--rose)}
+.nav__right{display:flex;align-items:center;gap:10px;margin-inline-start:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;font-weight:500;font-size:.86rem;padding:10px 18px;transition:transform .3s var(--spring),box-shadow .3s,opacity .3s;cursor:pointer;border:0;white-space:nowrap}
+.btn--accent{background:linear-gradient(120deg,var(--rose),var(--rose-deep),var(--gold),var(--rose));background-size:260% 100%;color:#2a0f1c;font-weight:600;box-shadow:0 10px 28px -8px rgba(239,138,176,.55);animation:sheen 7s linear infinite}
+@keyframes sheen{to{background-position:260% 0}}
+.btn--accent:hover{transform:translateY(-2px)}
+.btn--ghost{background:rgba(255,255,255,.05);color:var(--cream);border:1px solid var(--line)}.btn--ghost:hover{border-color:rgba(255,255,255,.4)}
+.lang{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--cream);border-radius:999px;width:46px;height:38px;font-size:.78rem;font-weight:600;cursor:pointer;transition:.3s}
+.lang:hover{background:rgba(255,255,255,.12)}
+.nav__toggle{display:none;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--cream);border-radius:10px;width:38px;height:38px;cursor:pointer;align-items:center;justify-content:center;font-size:1.05rem}
+@media(max-width:780px){
+  .nav__links{display:none}
+  .nav__toggle{display:inline-flex}
+  .nav__links.m{position:absolute;inset-block-start:62px;inset-inline:10px;flex-direction:column;gap:2px;background:rgba(20,15,20,.95);backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:18px;padding:12px 18px;display:none}
+  .nav__links.m.open{display:flex}
+  .nav__links.m a{padding:10px 4px;font-size:1.02rem}
+}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding-block:150px 90px}
+.hero__bg{position:absolute;inset:0;z-index:-1;overflow:hidden;background:#140e13}
+.hero__bg .grad{position:absolute;inset:0;background:linear-gradient(155deg,#3a1426,#1a0f1a 55%,#0e0b0e)}
+.hero__bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.92}
+.hero__bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,11,14,.25),rgba(14,11,14,.35) 45%,rgba(14,11,14,.82) 80%,var(--bg)),radial-gradient(75% 60% at 75% 12%,transparent,rgba(14,11,14,.2))}
+.hero__in{position:relative;max-width:680px}
+.eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-size:.74rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);background:rgba(255,255,255,.08);border:1px solid var(--line);padding:7px 14px;border-radius:999px;margin-bottom:1.3rem;backdrop-filter:blur(8px)}
+html[dir=rtl] .eyebrow{letter-spacing:0}
+.eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--rose);box-shadow:0 0 10px var(--rose)}
+.hero h1{font-size:clamp(2.6rem,6.6vw,5.4rem);text-shadow:0 6px 40px rgba(0,0,0,.5)}
+.hero h1 .w{display:inline-block;will-change:transform,opacity,filter}
+.hero h1 .hl{background:linear-gradient(110deg,var(--rose),var(--gold) 55%,var(--peach));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lede{margin-top:1.4rem;max-width:50ch;font-size:clamp(1rem,1.6vw,1.2rem);font-weight:300;color:rgba(246,238,241,.82)}
+.hero__cta{margin-top:2rem;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.hero .btn{padding:14px 28px;font-size:.96rem}
+.idea{margin-top:1.4rem;display:flex;gap:8px;max-width:440px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;padding:6px 6px 6px 6px;backdrop-filter:blur(8px)}
+.idea input{flex:1;background:transparent;border:0;outline:none;color:var(--cream);font-family:inherit;font-size:.92rem;padding:8px 14px}
+.idea input::placeholder{color:var(--faint)}
+.idea button{border:0;border-radius:999px;padding:10px 18px;background:var(--cream);color:#2a0f1c;font-family:inherit;font-weight:600;font-size:.86rem;cursor:pointer;white-space:nowrap;transition:transform .3s var(--spring)}
+.idea button:hover{transform:translateY(-1px)}
+.scrollcue{position:absolute;inset-block-end:22px;inset-inline-start:50%;transform:translateX(-50%);color:var(--rose);opacity:.8;animation:bob 1.8s ease-in-out infinite;z-index:2}
+@keyframes bob{50%{transform:translate(-50%,8px)}}
+
+/* marquee */
+.marquee{overflow:hidden;border-block:1px solid var(--line);padding:16px 0;background:rgba(255,255,255,.02);-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.marquee__t{display:flex;gap:38px;width:max-content;animation:scroll 26s linear infinite;font-family:var(--font-head);font-style:var(--hs);font-size:clamp(1.3rem,3vw,2rem);color:rgba(246,238,241,.7);white-space:nowrap}
+.marquee__t span{display:inline-flex;gap:38px;align-items:center}
+.marquee__t span::after{content:'✿';color:var(--rose)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);overflow:hidden}
+.stats .cell{padding:32px 18px;text-align:center}
+.stats .cell+.cell{box-shadow:inset 1px 0 0 var(--line)}
+.stats .num{font-family:var(--font-head);font-style:var(--hs);font-size:clamp(2rem,4vw,3.1rem);line-height:1;background:linear-gradient(120deg,var(--cream),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stats .lab{margin-top:.4rem;font-size:.82rem;color:var(--muted)}
+@media(max-width:680px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* section head */
+.shead{max-width:62ch;margin-bottom:clamp(2rem,5vw,3.4rem)}
+.shead .kick{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--rose)}
+html[dir=rtl] .shead .kick{letter-spacing:0}
+.shead .kick span:first-child{filter:drop-shadow(0 0 6px rgba(239,138,176,.7))}
+.shead h2{font-size:clamp(2rem,5vw,3.3rem);margin-top:.7rem}
+.shead p{margin-top:.9rem;color:var(--muted);font-weight:300;font-size:1.06rem}
+
+/* split */
+.split{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(24px,4vw,56px);align-items:center}
+.split.rev{grid-template-columns:1fr 1.05fr}
+@media(max-width:860px){.split,.split.rev{grid-template-columns:1fr}}
+
+/* media placeholder */
+.media{position:relative;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:4/3;border:1px solid var(--line);box-shadow:0 30px 70px -34px rgba(0,0,0,.8)}
+.media .bgp{position:absolute;inset:0;background:linear-gradient(150deg,#3a1b2b,#241726 60%,#15101a)}
+.media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.media .lbl{position:absolute;inset-block-end:0;inset-inline:0;padding:16px 18px;display:flex;align-items:center;gap:8px;color:var(--cream);font-size:.84rem;background:linear-gradient(to top,rgba(0,0,0,.7),transparent)}
+.media .lbl .em{font-size:1.2rem}
+
+/* services */
+.cards{display:grid;gap:clamp(14px,2vw,22px);grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.tilt{transition:transform .4s var(--spring),box-shadow .4s}
+.card{padding:30px 28px 34px;display:flex;flex-direction:column;gap:14px}
+.card .ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:1.65rem;background:linear-gradient(135deg,rgba(239,138,176,.22),rgba(243,201,138,.12));border:1px solid rgba(239,138,176,.3);box-shadow:0 10px 26px -12px rgba(239,138,176,.5);transition:box-shadow .4s,transform .4s var(--spring)}
+.card:hover .ic{transform:translateY(-3px) scale(1.05);box-shadow:0 16px 36px -10px rgba(239,138,176,.75)}
+.card h3{font-size:1.4rem}.card p{color:var(--muted);font-weight:300;font-size:.98rem}
+
+/* gallery (visual trends) */
+.gal{display:grid;gap:clamp(12px,1.6vw,18px);grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.tile{aspect-ratio:4/5;border-radius:var(--radius);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:18px;border:1px solid var(--line);box-shadow:0 24px 56px -30px rgba(0,0,0,.85)}
+.tile .bg{position:absolute;inset:0;z-index:-1}
+.tile:nth-child(1) .bg{background:linear-gradient(160deg,#3a1b2b,#5a2a3e)}
+.tile:nth-child(2) .bg{background:linear-gradient(160deg,#3a2418,#5a3a26)}
+.tile:nth-child(3) .bg{background:linear-gradient(160deg,#2a1b3a,#4a2e55)}
+.tile:nth-child(4) .bg{background:linear-gradient(160deg,#3a1b2b,#5a3a4a)}
+.tile:nth-child(5) .bg{background:linear-gradient(160deg,#1b2a3a,#2e4055)}
+.tile:nth-child(6) .bg{background:linear-gradient(160deg,#3a2b1b,#553f26)}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;transition:transform .9s var(--ease)}
+.tile:hover img{transform:scale(1.08)}
+.tile::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(0,0,0,.6),transparent 55%)}
+.tile .tag{position:absolute;inset-block-start:14px;inset-inline-start:14px;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px;background:rgba(0,0,0,.45);border:1px solid var(--line);color:var(--rose)}
+.tile .ph{font-size:.92rem;color:var(--cream);font-weight:500;display:flex;align-items:center;gap:6px}
+
+/* process */
+.steps{display:grid;gap:clamp(14px,2vw,20px);grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.step{padding:28px 26px;display:flex;flex-direction:column;gap:10px}
+.step .n{font-family:var(--font-head);font-style:var(--hs);font-size:2.4rem;background:linear-gradient(120deg,var(--rose),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.step h3{font-size:1.25rem}.step p{color:var(--muted);font-weight:300;font-size:.92rem}
+
+/* cta */
+.cta{position:relative;border-radius:var(--radius-lg);overflow:hidden;text-align:center;padding:clamp(46px,7vw,84px) var(--gutter)}
+.cta .bgp{position:absolute;inset:0;z-index:-1;background:linear-gradient(140deg,#3a1426,#1a0f1a)}
+.cta .cta-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:.42}
+.cta .scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(14,11,14,.5),rgba(14,11,14,.72) 70%,rgba(14,11,14,.82))}
+.cta::after{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(60% 120% at 50% 0,rgba(239,138,176,.32),transparent 70%)}
+.cta h2{font-size:clamp(2.2rem,6vw,4rem)}
+.cta p{margin-top:1rem;color:var(--muted);font-weight:300}
+.cta .btn{margin-top:2rem;padding:16px 36px;font-size:1.02rem}
+.note{margin-top:1rem;font-size:.74rem;color:var(--faint)}
+
+footer{border-top:1px solid var(--line);padding:40px var(--gutter);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;color:var(--muted);font-size:.85rem}
+.demo-chip{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rose);border:1px solid var(--line);padding:5px 11px;border-radius:999px}
+
+.reveal{opacity:0;transform:perspective(900px) translateY(42px) rotateX(7deg);transform-origin:50% 100%;filter:blur(6px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+.reveal.in{opacity:1;transform:none;filter:none}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;filter:none;transition:none}
+  .marquee__t,.scrollcue,.btn--accent,.hero__bg .grad{animation:none}
+}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <span class="nav__brand" data-ar="أثير الزهراني" data-en="Atheer Al-Zahrani">أثير الزهراني</span>
+    <div class="nav__links m" id="navLinks">
+      <a href="#about" data-ar="نبذة" data-en="About">نبذة</a>
+      <a href="#services" data-ar="الخدمات" data-en="Services">الخدمات</a>
+      <a href="#work" data-ar="أعمالي" data-en="Work">أعمالي</a>
+      <a href="#contact" data-ar="تواصل" data-en="Contact">تواصل</a>
+    </div>
+    <div class="nav__right">
+      <button class="nav__toggle" id="navToggle" aria-label="القائمة" aria-expanded="false">☰</button>
+      <button class="lang" id="langBtn" aria-label="Switch language">EN</button>
+      <a href="#contact" class="btn btn--accent magnetic" data-ar="تواصلي معي" data-en="Let's talk">تواصلي معي</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="hero">
+  <div class="hero__bg">
+    <div class="grad"></div>
+    <video autoplay muted loop playsinline preload="auto"><source src="assets/hero.mp4" type="video/mp4"></video>
+  </div>
+  <div class="wrap">
+    <div class="hero__in reveal">
+      <span class="eyebrow"><span class="dot"></span><span data-ar="مصمِّمة ومهتمّة بالذكاء الاصطناعي" data-en="AI Creative Designer">مصمِّمة ومهتمّة بالذكاء الاصطناعي</span></span>
+      <h1 id="heroH1" data-ar="تصميمٌ بصري ::يوقف:: التمرير من أول ثانية" data-en="Visual design that ::stops:: the scroll in one second">تصميمٌ بصري يوقف التمرير من أول ثانية</h1>
+      <p class="lede" data-ar="فيديو، صور احترافية، شعارات، وتصميم داخلي — هوية كاملة لعلامتك بلمسة الذكاء الاصطناعي وذوق مصمِّمة. نحوّل أي فكرة إلى حضورٍ لا يُنسى." data-en="Video, pro imagery, logos and interior design — a complete identity for your brand, with AI power and a designer's taste. Any idea, turned into an unforgettable presence.">فيديو، صور احترافية، شعارات، وتصميم داخلي — هوية كاملة لعلامتك بلمسة الذكاء الاصطناعي وذوق مصمِّمة. نحوّل أي فكرة إلى حضورٍ لا يُنسى.</p>
+      <div class="hero__cta">
+        <a href="#work" class="btn btn--accent magnetic" data-ar="شوفي أعمالي" data-en="See my work">شوفي أعمالي</a>
+        <a href="#contact" class="btn btn--ghost magnetic" data-ar="راسليني واتساب" data-en="Message on WhatsApp">راسليني واتساب</a>
+      </div>
+      <form class="idea" id="ideaForm">
+        <input id="ideaInput" type="text" data-ar-ph="اكتبي فكرتك أو رقمك…" data-en-ph="Type your idea or number…" placeholder="اكتبي فكرتك أو رقمك…" aria-label="فكرتك">
+        <button type="submit" data-ar="أرسلي" data-en="Send">أرسلي</button>
+      </form>
+    </div>
+  </div>
+  <div class="scrollcue"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="6 9 12 15 18 9"/></svg></div>
+</header>
+
+<div class="marquee">
+  <div class="marquee__t" id="mq">
+    <span data-ar="تصميم الشعارات" data-en="Logo design"></span><span data-ar="مونتاج الفيديو" data-en="Video editing"></span><span data-ar="صور بالذكاء الاصطناعي" data-en="AI imagery"></span><span data-ar="تحسين الصور" data-en="Photo enhancement"></span><span data-ar="التصميم الداخلي" data-en="Interior design"></span><span data-ar="المحتوى والتسويق" data-en="Content & marketing"></span>
+  </div>
+</div>
+
+<section style="padding-block:0"><div class="wrap">
+  <div class="stats glass reveal">
+    <div class="cell"><div class="num" data-count="60" data-suffix="+">٠</div><div class="lab" data-ar="مشروع منجز" data-en="Projects delivered">مشروع منجز</div></div>
+    <div class="cell"><div class="num" data-count="5">٠</div><div class="lab" data-ar="مجالات إبداعية" data-en="Creative fields">مجالات إبداعية</div></div>
+    <div class="cell"><div class="num">٢٤/٧</div><div class="lab" data-ar="متابعة وتواصل" data-en="Always in touch">متابعة وتواصل</div></div>
+    <div class="cell"><div class="num" data-count="100" data-suffix="٪">٠</div><div class="lab" data-ar="التزام بالموعد" data-en="On-time delivery">التزام بالموعد</div></div>
+  </div>
+</div></section>
+
+<section id="about"><div class="wrap split">
+  <div class="reveal"><div class="shead" style="margin:0">
+    <span class="kick"><span>✿</span><span data-ar="الفكرة" data-en="The idea">الفكرة</span></span>
+    <h2 data-ar="الذكاء الاصطناعي بدون ذوق… مجرد ضجيج" data-en="AI without taste… is just noise">الذكاء الاصطناعي بدون ذوق… مجرد ضجيج</h2>
+    <p data-ar="الأدوات صارت متاحة للجميع، لكن الفرق في العين التي تختار وتنسّق وتحكي قصة علامتك. أنا أثير الزهراني — أحوّل قدرات الذكاء الاصطناعي إلى هوية بصرية لها روح، تشبهك وتبيع لك." data-en="The tools are available to everyone now — the difference is the eye that selects, composes, and tells your brand's story. I'm Atheer Al-Zahrani; I turn AI into a visual identity with soul that looks like you and sells for you.">الأدوات صارت متاحة للجميع، لكن الفرق في العين التي تختار وتنسّق وتحكي قصة علامتك. أنا أثير الزهراني — أحوّل قدرات الذكاء الاصطناعي إلى هوية بصرية لها روح، تشبهك وتبيع لك.</p>
+  </div></div>
+  <div class="media reveal tilt"><div class="bgp"></div>
+    <img src="assets/img/studio-moodboard.webp" alt="من كواليس التصميم: تنسيق لوحة بصرية على الحاسب" loading="lazy" decoding="async" />
+    <div class="lbl"><span class="em">🌸</span><span data-ar="من كواليس العمل — تنسيق المزاج البصري" data-en="Behind the work — curating the visual moodboard">من كواليس العمل — تنسيق المزاج البصري</span></div>
+  </div>
+</div></section>
+
+<section id="services"><div class="wrap">
+  <div class="shead reveal">
+    <span class="kick"><span>✿</span><span data-ar="الخدمات" data-en="Services">الخدمات</span></span>
+    <h2 data-ar="كل ما تحتاجه علامتك لتظهر باحتراف" data-en="Everything your brand needs to shine">كل ما تحتاجه علامتك لتظهر باحتراف</h2>
+    <p data-ar="مجالات متكاملة — كلها مدعومة بالذكاء الاصطناعي وبذوق مصمِّمة." data-en="Complete creative fields — all AI-powered, with a designer's eye.">مجالات متكاملة — كلها مدعومة بالذكاء الاصطناعي وبذوق مصمِّمة.</p>
+  </div>
+  <div class="cards">
+    <div class="glass card tilt reveal"><div class="ic">🎬</div><h3 data-ar="مونتاج وتحرير الفيديو" data-en="Video Editing">مونتاج وتحرير الفيديو</h3><p data-ar="ريلز، إعلانات قصيرة، ومحتوى سوشال جاهز للنشر." data-en="Reels, short ads, and social-ready video.">ريلز، إعلانات قصيرة، ومحتوى سوشال جاهز للنشر.</p></div>
+    <div class="glass card tilt reveal"><div class="ic">📸</div><h3 data-ar="توليد الصور بالذكاء الاصطناعي" data-en="AI Image Generation">توليد الصور بالذكاء الاصطناعي</h3><p data-ar="صور منتجات وأشخاص ومشاهد احترافية عبر عدّة نماذج." data-en="Pro product, portrait & scene imagery via multiple models.">صور منتجات وأشخاص ومشاهد احترافية عبر عدّة نماذج.</p></div>
+    <div class="glass card tilt reveal"><div class="ic">✨</div><h3 data-ar="تحسين الصور الاحترافي" data-en="Pro Photo Enhancement">تحسين الصور الاحترافي</h3><p data-ar="حوّلي أي صورة عادية إلى جودة كاميرا احترافية — مثالية للعقار والمنتجات." data-en="Turn any ordinary photo into pro-camera quality — perfect for real estate & products.">حوّلي أي صورة عادية إلى جودة كاميرا احترافية — مثالية للعقار والمنتجات.</p></div>
+    <div class="glass card tilt reveal"><div class="ic">🎨</div><h3 data-ar="تصميم الشعارات والهوية" data-en="Logo & Brand Identity">تصميم الشعارات والهوية</h3><p data-ar="شعار + ألوان + خطوط ودليل استخدام متكامل لعلامتك." data-en="Logo + colors + type + a full brand guide.">شعار + ألوان + خطوط ودليل استخدام متكامل لعلامتك.</p></div>
+    <div class="glass card tilt reveal"><div class="ic">🛋️</div><h3 data-ar="التصميم الداخلي والأثاث" data-en="Interior & Furniture">التصميم الداخلي والأثاث</h3><p data-ar="تصوّرات واقعية لمساحاتك وتنسيق الأثاث بالذكاء الاصطناعي." data-en="Realistic visualizations of spaces & furniture styling with AI.">تصوّرات واقعية لمساحاتك وتنسيق الأثاث بالذكاء الاصطناعي.</p></div>
+    <div class="glass card tilt reveal"><div class="ic">📈</div><h3 data-ar="المحتوى والتسويق" data-en="Content & Marketing">المحتوى والتسويق</h3><p data-ar="أفكار حملات ومحتوى بصري ونصّي يجذب عميلك المستهدف." data-en="Campaign ideas & content that attracts your audience.">أفكار حملات ومحتوى بصري ونصّي يجذب عميلك المستهدف.</p></div>
+  </div>
+</div></section>
+
+<section id="enhance"><div class="wrap split rev">
+  <div class="media reveal tilt"><div class="bgp"></div>
+    <img src="assets/img/bloom-portrait.webp" alt="صورة محسّنة بالذكاء الاصطناعي بإضاءة وتفاصيل احترافية" loading="lazy" decoding="async" />
+    <div class="lbl"><span class="em">✨</span><span data-ar="نتيجة تحسين بالذكاء الاصطناعي" data-en="An AI-enhanced result">نتيجة تحسين بالذكاء الاصطناعي</span></div>
+  </div>
+  <div class="reveal"><div class="shead" style="margin:0">
+    <span class="kick"><span>★</span><span data-ar="الخدمة المميّزة" data-en="Signature">الخدمة المميّزة</span></span>
+    <h2 data-ar="الصورة العادية… تصير مادة بيع" data-en="An ordinary photo… becomes a selling asset">الصورة العادية… تصير مادة بيع</h2>
+    <p data-ar="أرسلي صورة من جوالك، وتعود إليك بإضاءة وتفاصيل وكأنها التُقطت بكاميرا احترافية — مثالية للعقارات، المنتجات، والأثاث." data-en="Send a photo from your phone and get it back as if shot on a pro camera — perfect for real estate, products and furniture.">أرسلي صورة من جوالك، وتعود إليك بإضاءة وتفاصيل وكأنها التُقطت بكاميرا احترافية — مثالية للعقارات، المنتجات، والأثاث.</p>
+  </div></div>
+</div></section>
+
+<section id="work"><div class="wrap">
+  <div class="shead reveal">
+    <span class="kick"><span>✿</span><span data-ar="أعمالي" data-en="Work">أعمالي</span></span>
+    <h2 data-ar="اتجاهات بصرية جاهزة لحملات حقيقية" data-en="Visual directions, ready for real campaigns">اتجاهات بصرية جاهزة لحملات حقيقية</h2>
+    <p data-ar="أماكن العرض جاهزة — تُضاف أعمال أثير وصورها الحقيقية هنا." data-en="The display slots are ready — Atheer's real work & images go here.">أماكن العرض جاهزة — تُضاف أعمال أثير وصورها الحقيقية هنا.</p>
+  </div>
+  <div class="gal">
+    <div class="tile reveal tilt"><div class="bg"></div><img src="assets/img/ai-gallery.webp" alt="معرض صور بالذكاء الاصطناعي وسط الزهور" loading="lazy" decoding="async" /><span class="tag" data-ar="صور AI" data-en="AI photos">صور AI</span><span class="ph"><span>🌸</span><span data-ar="معرض بصري بالذكاء الاصطناعي" data-en="AI visual gallery">معرض بصري بالذكاء الاصطناعي</span></span></div>
+    <div class="tile reveal tilt"><div class="bg"></div><img src="assets/img/designer-desk.webp" alt="مساحة تصميم وهوية بلوحة ألوان" loading="lazy" decoding="async" /><span class="tag" data-ar="شعار وهوية" data-en="Branding">شعار وهوية</span><span class="ph"><span>🎀</span><span data-ar="أجواء علامة كاملة" data-en="A full brand mood">أجواء علامة كاملة</span></span></div>
+    <div class="tile reveal tilt"><div class="bg"></div><img src="assets/img/canvas-bloom.webp" alt="تنسيق مشهد ومساحة بإضاءة طبيعية" loading="lazy" decoding="async" /><span class="tag" data-ar="تصميم داخلي" data-en="Interior">تصميم داخلي</span><span class="ph"><span>🪞</span><span data-ar="تنسيق مشهد ومكان" data-en="Scene & space styling">تنسيق مشهد ومكان</span></span></div>
+    <div class="tile reveal tilt"><div class="bg"></div><img src="assets/img/studio-moodboard.webp" alt="تحسين تفاصيل وإضاءة الصور" loading="lazy" decoding="async" /><span class="tag" data-ar="تحسين صور" data-en="Enhance">تحسين صور</span><span class="ph"><span>✨</span><span data-ar="تفاصيل وإضاءة احترافية" data-en="Pro light & detail">تفاصيل وإضاءة احترافية</span></span></div>
+    <div class="tile reveal tilt"><div class="bg"></div><img src="assets/img/ai-gallery.webp" alt="محتوى بصري جاذب" loading="lazy" decoding="async" /><span class="tag" data-ar="محتوى" data-en="Content">محتوى</span><span class="ph"><span>🦋</span><span data-ar="محتوى بصري يجذب" data-en="Content that attracts">محتوى بصري يجذب</span></span></div>
+    <div class="tile reveal tilt"><div class="bg"></div><img src="assets/img/bloom-portrait.webp" alt="لقطات سينمائية حالمة" loading="lazy" decoding="async" /><span class="tag" data-ar="فيديو" data-en="Video">فيديو</span><span class="ph"><span>🎬</span><span data-ar="لقطات سينمائية" data-en="Cinematic frames">لقطات سينمائية</span></span></div>
+  </div>
+</div></section>
+
+<section id="process"><div class="wrap">
+  <div class="shead reveal"><span class="kick"><span>✿</span><span data-ar="آلية العمل" data-en="Process">آلية العمل</span></span><h2 data-ar="حركة سهلة، هدف واضح، نتيجة قابلة للاستخدام" data-en="Easy flow, clear goal, usable result">حركة سهلة، هدف واضح، نتيجة قابلة للاستخدام</h2></div>
+  <div class="steps">
+    <div class="glass step tilt reveal"><span class="n">٠١</span><h3 data-ar="نفهم" data-en="Understand">نفهم</h3><p data-ar="أفهم فكرتك وهدفك." data-en="I learn your idea & goal.">أفهم فكرتك وهدفك.</p></div>
+    <div class="glass step tilt reveal"><span class="n">٠٢</span><h3 data-ar="نصمّم" data-en="Create">نصمّم</h3><p data-ar="مسودّات وخيارات بالذكاء الاصطناعي." data-en="Drafts & AI-powered options.">مسودّات وخيارات بالذكاء الاصطناعي.</p></div>
+    <div class="glass step tilt reveal"><span class="n">٠٣</span><h3 data-ar="نراجع" data-en="Refine">نراجع</h3><p data-ar="تعديلات حتى تعتمدين." data-en="Revisions until you approve.">تعديلات حتى تعتمدين.</p></div>
+    <div class="glass step tilt reveal"><span class="n">٠٤</span><h3 data-ar="نسلّم" data-en="Deliver">نسلّم</h3><p data-ar="ملفات نهائية جاهزة للاستخدام." data-en="Final, ready-to-use files.">ملفات نهائية جاهزة للاستخدام.</p></div>
+  </div>
+</div></section>
+
+<section id="contact" class="wrap"><div class="cta reveal"><div class="bgp"></div><img class="cta-bg" src="assets/img/canvas-bloom.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div class="scrim"></div>
+  <h2 data-ar="خلّينا نطلّع مشروعك بشكل يليق فيه" data-en="Let's make your project look the way it deserves">خلّينا نطلّع مشروعك بشكل يليق فيه</h2>
+  <p data-ar="عندك فكرة أو علامة تجارية؟ راسليني على واتساب وخلّينا نحوّلها لواقع." data-en="Have an idea or a brand? Message me on WhatsApp and let's make it real.">عندك فكرة أو علامة تجارية؟ راسليني على واتساب وخلّينا نحوّلها لواقع.</p>
+  <a href="https://wa.me/966502305331" class="btn btn--accent magnetic" data-ar="تواصلي عبر واتساب 🌸" data-en="Message on WhatsApp 🌸">تواصلي عبر واتساب 🌸</a>
+  <div class="note" data-ar="واتساب 0502305331 · نرد عادةً خلال ساعات قليلة 🌸" data-en="WhatsApp 0502305331 · we usually reply within hours 🌸">واتساب 0502305331 · نرد عادةً خلال ساعات قليلة 🌸</div>
+</div></section>
+
+<footer>
+  <span data-ar="© ٢٠٢٦ أثير الزهراني — جميع الحقوق محفوظة" data-en="© 2026 Atheer Al-Zahrani — All rights reserved">© ٢٠٢٦ أثير الزهراني — جميع الحقوق محفوظة</span>
+  <a class="demo-chip" href="https://wa.me/966502305331" target="_blank" rel="noopener" data-ar="واتساب · 0502305331" data-en="WhatsApp · 0502305331">واتساب · 0502305331</a>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('langBtn');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function toLoc(n){ return root.lang==='ar' ? String(n).replace(/[0-9]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'[d];}) : String(n); }
+  function fmtSuf(el){ var s=el.getAttribute('data-suffix')||''; return s==='٪'?(root.lang==='en'?'%':'٪'):s; }
+  function refreshNums(){ document.querySelectorAll('[data-count]').forEach(function(el){ if(el.dataset.counted) el.textContent=toLoc(+el.getAttribute('data-count'))+fmtSuf(el); }); }
+  function count(el){ if(el.dataset.counted)return; el.dataset.counted='1'; var target=+el.getAttribute('data-count'),t0=null,dur=1300;
+    function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/dur,1); el.textContent=toLoc(Math.round(target*p))+fmtSuf(el); if(p<1)requestAnimationFrame(step); else el.textContent=toLoc(target)+fmtSuf(el);} requestAnimationFrame(step); }
+
+  function splitH1(animate){
+    var h=document.getElementById('heroH1'); if(!h)return;
+    var lang=root.lang==='en'?'en':'ar';
+    var raw=h.getAttribute('data-'+lang)||'';
+    h.innerHTML=raw.split(' ').map(function(w){
+      if(w.length>4&&w.indexOf('::')===0&&w.lastIndexOf('::')===w.length-2){ return '<span class="w hl">'+w.slice(2,-2)+'</span>'; }
+      return '<span class="w">'+w+'</span>';
+    }).join(' ');
+    if(animate&&!reduce){
+      [].forEach.call(h.querySelectorAll('.w'),function(s,i){ s.style.opacity=0; s.style.transform='perspective(700px) translateY(34px) rotateX(34deg)'; s.style.transition='opacity .7s var(--ease) '+(i*0.06)+'s, transform .7s var(--ease) '+(i*0.06)+'s'; });
+      requestAnimationFrame(function(){requestAnimationFrame(function(){ [].forEach.call(h.querySelectorAll('.w'),function(s){s.style.opacity=1;s.style.transform='none';}); });});
+    }
+  }
+  function apply(lang,animateH1){
+    root.lang=lang; root.dir=(lang==='ar')?'rtl':'ltr';
+    root.classList.toggle('lang-en',lang==='en');
+    document.querySelectorAll('[data-ar]').forEach(function(el){ if(el.id==='heroH1')return; el.textContent=el.getAttribute('data-'+lang); });
+    var ip=document.getElementById('ideaInput'); if(ip)ip.placeholder=ip.getAttribute('data-'+lang+'-ph')||ip.placeholder;
+    btn.textContent=(lang==='ar')?'EN':'ع';
+    btn.setAttribute('aria-label',lang==='ar'?'Switch to English':'التبديل إلى العربية');
+    splitH1(animateH1); refreshNums();
+    try{localStorage.setItem('atheer-lang',lang);}catch(e){}
+  }
+  var saved='ar'; try{saved=localStorage.getItem('atheer-lang')||'ar';}catch(e){}
+  apply(saved,true);
+  btn.addEventListener('click',function(){ apply(root.lang==='ar'?'en':'ar',false); });
+
+  var f=document.getElementById('ideaForm');
+  if(f){ f.addEventListener('submit',function(e){ e.preventDefault(); var v=document.getElementById('ideaInput').value.trim(); var msg=encodeURIComponent((root.lang==='ar'?'مرحباً أثير، ':'Hi Atheer, ')+(v||(root.lang==='ar'?'حابة أستفسر عن مشروع':'I have a project in mind'))); window.open('https://wa.me/966502305331?text='+msg,'_blank'); }); }
+
+  var navToggle=document.getElementById('navToggle'), navLinks=document.getElementById('navLinks');
+  if(navToggle&&navLinks){
+    navToggle.addEventListener('click',function(){ var o=navLinks.classList.toggle('open'); navToggle.setAttribute('aria-expanded',o?'true':'false'); });
+    navLinks.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ navLinks.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); }); });
+  }
+
+  var mq=document.getElementById('mq'); if(mq){ mq.innerHTML+=mq.innerHTML; }
+
+  var els=[].slice.call(document.querySelectorAll('.reveal'));
+  function showAll(){ els.forEach(function(el){el.classList.add('in');}); document.querySelectorAll('.hero h1 .w').forEach(function(s){s.style.opacity=1;s.style.transform='none';}); document.querySelectorAll('[data-count]').forEach(count); }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){
+      var sibs=[].slice.call(e.target.parentNode.children).filter(function(n){return n.classList.contains('reveal');});
+      e.target.style.transitionDelay=(Math.max(0,sibs.indexOf(e.target))*0.06)+'s';
+      e.target.classList.add('in');
+      if(e.target.querySelectorAll) e.target.querySelectorAll('[data-count]').forEach(count);
+      io.unobserve(e.target);
+    }});},{threshold:.12,rootMargin:'0px 0px -70px 0px'});
+    els.forEach(function(el){io.observe(el);});
+    setTimeout(showAll,1500);
+  } else { showAll(); }
+
+  var fine=window.matchMedia&&window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(fine&&!reduce){
+    document.querySelectorAll('.tilt').forEach(function(el){
+      el.addEventListener('mousemove',function(e){ var r=el.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-0.5, y=(e.clientY-r.top)/r.height-0.5; el.style.transform='perspective(800px) rotateY('+(x*7)+'deg) rotateX('+(-y*7)+'deg) translateY(-4px)'; });
+      el.addEventListener('mouseleave',function(){ el.style.transform=''; });
+    });
+    document.querySelectorAll('.magnetic').forEach(function(el){
+      el.addEventListener('mousemove',function(e){ var r=el.getBoundingClientRect(); el.style.transform='translate('+((e.clientX-r.left-r.width/2)*0.22)+'px,'+((e.clientY-r.top-r.height/2)*0.28)+'px)'; });
+      el.addEventListener('mouseleave',function(){ el.style.transform=''; });
+    });
+  }
+})();
+</script>
+</body>
+</html>
