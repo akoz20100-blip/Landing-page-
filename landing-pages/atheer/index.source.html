@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<!-- Reference build: external Thmanyah + relative video. Add Atheer real images. -->
+<!-- Reference build: external Thmanyah fonts + relative video + relative WebP images. -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="theme-color" content="#0e0b0e" />
@@ -155,7 +155,9 @@ html[dir=rtl] .shead .kick{letter-spacing:0}
 /* cta */
 .cta{position:relative;border-radius:var(--radius-lg);overflow:hidden;text-align:center;padding:clamp(46px,7vw,84px) var(--gutter)}
 .cta .bgp{position:absolute;inset:0;z-index:-1;background:linear-gradient(140deg,#3a1426,#1a0f1a)}
-.cta::after{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(60% 120% at 50% 0,rgba(239,138,176,.28),transparent 70%)}
+.cta .cta-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:.42}
+.cta .scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(14,11,14,.5),rgba(14,11,14,.72) 70%,rgba(14,11,14,.82))}
+.cta::after{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(60% 120% at 50% 0,rgba(239,138,176,.32),transparent 70%)}
 .cta h2{font-size:clamp(2.2rem,6vw,4rem)}
 .cta p{margin-top:1rem;color:var(--muted);font-weight:300}
 .cta .btn{margin-top:2rem;padding:16px 36px;font-size:1.02rem}
@@ -237,7 +239,8 @@ footer{border-top:1px solid var(--line);padding:40px var(--gutter);display:flex;
     <p data-ar="الأدوات صارت متاحة للجميع، لكن الفرق في العين التي تختار وتنسّق وتحكي قصة علامتك. أنا أثير الزهراني — أحوّل قدرات الذكاء الاصطناعي إلى هوية بصرية لها روح، تشبهك وتبيع لك." data-en="The tools are available to everyone now — the difference is the eye that selects, composes, and tells your brand's story. I'm Atheer Al-Zahrani; I turn AI into a visual identity with soul that looks like you and sells for you.">الأدوات صارت متاحة للجميع، لكن الفرق في العين التي تختار وتنسّق وتحكي قصة علامتك. أنا أثير الزهراني — أحوّل قدرات الذكاء الاصطناعي إلى هوية بصرية لها روح، تشبهك وتبيع لك.</p>
   </div></div>
   <div class="media reveal tilt"><div class="bgp"></div>
-    <div class="lbl"><span class="em">🌸</span><span data-ar="صورة من أعمالك — تُضاف هنا" data-en="One of your works — goes here">صورة من أعمالك — تُضاف هنا</span></div>
+    <img src="assets/img/studio-moodboard.webp" alt="من كواليس التصميم: تنسيق لوحة بصرية على الحاسب" loading="lazy" decoding="async" />
+    <div class="lbl"><span class="em">🌸</span><span data-ar="من كواليس العمل — تنسيق المزاج البصري" data-en="Behind the work — curating the visual moodboard">من كواليس العمل — تنسيق المزاج البصري</span></div>
   </div>
 </div></section>
 
@@ -259,7 +262,8 @@ footer{border-top:1px solid var(--line);padding:40px var(--gutter);display:flex;
 
 <section id="enhance"><div class="wrap split rev">
   <div class="media reveal tilt"><div class="bgp"></div>
-    <div class="lbl"><span class="em">✨</span><span data-ar="قبل / بعد — من صورك" data-en="Before / After — from your photos">قبل / بعد — من صورك</span></div>
+    <img src="assets/img/bloom-portrait.webp" alt="صورة محسّنة بالذكاء الاصطناعي بإضاءة وتفاصيل احترافية" loading="lazy" decoding="async" />
+    <div class="lbl"><span class="em">✨</span><span data-ar="نتيجة تحسين بالذكاء الاصطناعي" data-en="An AI-enhanced result">نتيجة تحسين بالذكاء الاصطناعي</span></div>
   </div>
   <div class="reveal"><div class="shead" style="margin:0">
     <span class="kick"><span>★</span><span data-ar="الخدمة المميّزة" data-en="Signature">الخدمة المميّزة</span></span>
@@ -275,12 +279,12 @@ footer{border-top:1px solid var(--line);padding:40px var(--gutter);display:flex;
     <p data-ar="أماكن العرض جاهزة — تُضاف أعمال أثير وصورها الحقيقية هنا." data-en="The display slots are ready — Atheer's real work & images go here.">أماكن العرض جاهزة — تُضاف أعمال أثير وصورها الحقيقية هنا.</p>
   </div>
   <div class="gal">
-    <div class="tile reveal tilt"><div class="bg"></div><span class="tag" data-ar="صور AI" data-en="AI photos">صور AI</span><span class="ph"><span>🌸</span><span data-ar="صورتك هنا" data-en="Your work">صورتك هنا</span></span></div>
-    <div class="tile reveal tilt"><div class="bg"></div><span class="tag" data-ar="شعار وهوية" data-en="Branding">شعار وهوية</span><span class="ph"><span>🎀</span><span data-ar="صورتك هنا" data-en="Your work">صورتك هنا</span></span></div>
-    <div class="tile reveal tilt"><div class="bg"></div><span class="tag" data-ar="تصميم داخلي" data-en="Interior">تصميم داخلي</span><span class="ph"><span>🪞</span><span data-ar="صورتك هنا" data-en="Your work">صورتك هنا</span></span></div>
-    <div class="tile reveal tilt"><div class="bg"></div><span class="tag" data-ar="تحسين صور" data-en="Enhance">تحسين صور</span><span class="ph"><span>✨</span><span data-ar="صورتك هنا" data-en="Your work">صورتك هنا</span></span></div>
-    <div class="tile reveal tilt"><div class="bg"></div><span class="tag" data-ar="محتوى" data-en="Content">محتوى</span><span class="ph"><span>🦋</span><span data-ar="صورتك هنا" data-en="Your work">صورتك هنا</span></span></div>
-    <div class="tile reveal tilt"><div class="bg"></div><span class="tag" data-ar="فيديو" data-en="Video">فيديو</span><span class="ph"><span>🎬</span><span data-ar="صورتك هنا" data-en="Your work">صورتك هنا</span></span></div>
+    <div class="tile reveal tilt"><div class="bg"></div><img src="assets/img/ai-gallery.webp" alt="معرض صور بالذكاء الاصطناعي وسط الزهور" loading="lazy" decoding="async" /><span class="tag" data-ar="صور AI" data-en="AI photos">صور AI</span><span class="ph"><span>🌸</span><span data-ar="معرض بصري بالذكاء الاصطناعي" data-en="AI visual gallery">معرض بصري بالذكاء الاصطناعي</span></span></div>
+    <div class="tile reveal tilt"><div class="bg"></div><img src="assets/img/designer-desk.webp" alt="مساحة تصميم وهوية بلوحة ألوان" loading="lazy" decoding="async" /><span class="tag" data-ar="شعار وهوية" data-en="Branding">شعار وهوية</span><span class="ph"><span>🎀</span><span data-ar="أجواء علامة كاملة" data-en="A full brand mood">أجواء علامة كاملة</span></span></div>
+    <div class="tile reveal tilt"><div class="bg"></div><img src="assets/img/canvas-bloom.webp" alt="تنسيق مشهد ومساحة بإضاءة طبيعية" loading="lazy" decoding="async" /><span class="tag" data-ar="تصميم داخلي" data-en="Interior">تصميم داخلي</span><span class="ph"><span>🪞</span><span data-ar="تنسيق مشهد ومكان" data-en="Scene & space styling">تنسيق مشهد ومكان</span></span></div>
+    <div class="tile reveal tilt"><div class="bg"></div><img src="assets/img/studio-moodboard.webp" alt="تحسين تفاصيل وإضاءة الصور" loading="lazy" decoding="async" /><span class="tag" data-ar="تحسين صور" data-en="Enhance">تحسين صور</span><span class="ph"><span>✨</span><span data-ar="تفاصيل وإضاءة احترافية" data-en="Pro light & detail">تفاصيل وإضاءة احترافية</span></span></div>
+    <div class="tile reveal tilt"><div class="bg"></div><img src="assets/img/ai-gallery.webp" alt="محتوى بصري جاذب" loading="lazy" decoding="async" /><span class="tag" data-ar="محتوى" data-en="Content">محتوى</span><span class="ph"><span>🦋</span><span data-ar="محتوى بصري يجذب" data-en="Content that attracts">محتوى بصري يجذب</span></span></div>
+    <div class="tile reveal tilt"><div class="bg"></div><img src="assets/img/bloom-portrait.webp" alt="لقطات سينمائية حالمة" loading="lazy" decoding="async" /><span class="tag" data-ar="فيديو" data-en="Video">فيديو</span><span class="ph"><span>🎬</span><span data-ar="لقطات سينمائية" data-en="Cinematic frames">لقطات سينمائية</span></span></div>
   </div>
 </div></section>
 
@@ -294,16 +298,16 @@ footer{border-top:1px solid var(--line);padding:40px var(--gutter);display:flex;
   </div>
 </div></section>
 
-<section id="contact" class="wrap"><div class="cta reveal"><div class="bgp"></div>
+<section id="contact" class="wrap"><div class="cta reveal"><div class="bgp"></div><img class="cta-bg" src="assets/img/canvas-bloom.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div class="scrim"></div>
   <h2 data-ar="خلّينا نطلّع مشروعك بشكل يليق فيه" data-en="Let's make your project look the way it deserves">خلّينا نطلّع مشروعك بشكل يليق فيه</h2>
   <p data-ar="عندك فكرة أو علامة تجارية؟ راسليني على واتساب وخلّينا نحوّلها لواقع." data-en="Have an idea or a brand? Message me on WhatsApp and let's make it real.">عندك فكرة أو علامة تجارية؟ راسليني على واتساب وخلّينا نحوّلها لواقع.</p>
-  <a href="https://wa.me/9665XXXXXXXX" class="btn btn--accent magnetic" data-ar="تواصلي عبر واتساب 🌸" data-en="Message on WhatsApp 🌸">تواصلي عبر واتساب 🌸</a>
-  <div class="note" data-ar="* الرقم تجريبي — يُستبدل برقمك الحقيقي." data-en="* Placeholder number — replace with the real one.">* الرقم تجريبي — يُستبدل برقمك الحقيقي.</div>
+  <a href="https://wa.me/966502305331" class="btn btn--accent magnetic" data-ar="تواصلي عبر واتساب 🌸" data-en="Message on WhatsApp 🌸">تواصلي عبر واتساب 🌸</a>
+  <div class="note" data-ar="واتساب 0502305331 · نرد عادةً خلال ساعات قليلة 🌸" data-en="WhatsApp 0502305331 · we usually reply within hours 🌸">واتساب 0502305331 · نرد عادةً خلال ساعات قليلة 🌸</div>
 </div></section>
 
 <footer>
   <span data-ar="© ٢٠٢٦ أثير الزهراني — جميع الحقوق محفوظة" data-en="© 2026 Atheer Al-Zahrani — All rights reserved">© ٢٠٢٦ أثير الزهراني — جميع الحقوق محفوظة</span>
-  <span class="demo-chip" data-ar="نموذج مبدئي · DEMO" data-en="Preview · DEMO">نموذج مبدئي · DEMO</span>
+  <a class="demo-chip" href="https://wa.me/966502305331" target="_blank" rel="noopener" data-ar="واتساب · 0502305331" data-en="WhatsApp · 0502305331">واتساب · 0502305331</a>
 </footer>
 
 <script>
@@ -345,7 +349,7 @@ footer{border-top:1px solid var(--line);padding:40px var(--gutter);display:flex;
   btn.addEventListener('click',function(){ apply(root.lang==='ar'?'en':'ar',false); });
 
   var f=document.getElementById('ideaForm');
-  if(f){ f.addEventListener('submit',function(e){ e.preventDefault(); var v=document.getElementById('ideaInput').value.trim(); var msg=encodeURIComponent((root.lang==='ar'?'مرحباً أثير، ':'Hi Atheer, ')+(v||(root.lang==='ar'?'حابة أستفسر عن مشروع':'I have a project in mind'))); window.open('https://wa.me/9665XXXXXXXX?text='+msg,'_blank'); }); }
+  if(f){ f.addEventListener('submit',function(e){ e.preventDefault(); var v=document.getElementById('ideaInput').value.trim(); var msg=encodeURIComponent((root.lang==='ar'?'مرحباً أثير، ':'Hi Atheer, ')+(v||(root.lang==='ar'?'حابة أستفسر عن مشروع':'I have a project in mind'))); window.open('https://wa.me/966502305331?text='+msg,'_blank'); }); }
 
   var navToggle=document.getElementById('navToggle'), navLinks=document.getElementById('navLinks');
   if(navToggle&&navLinks){
