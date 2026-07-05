@@ -1,0 +1,158 @@
+{
+  "screenshots": [
+    "atheer-ar-390.png",
+    "atheer-ar-768.png",
+    "atheer-ar-1440.png",
+    "atheer-en-390.png",
+    "atheer-en-768.png",
+    "atheer-en-1440.png"
+  ],
+  "checks": {
+    "ar-390": {
+      "lang": "ar",
+      "dir": "rtl",
+      "overflow": 0,
+      "h1": "تصميمٌ بصري يوقف\n التمرير من أول ثانية",
+      "body": "rgb(243, 234, 218)",
+      "video": true,
+      "projects": 4,
+      "projectImgs": 4
+    },
+    "ar-768": {
+      "lang": "ar",
+      "dir": "rtl",
+      "overflow": 0,
+      "h1": "تصميمٌ بصري يوقف\n التمرير من أول ثانية",
+      "body": "rgb(243, 234, 218)",
+      "video": true,
+      "projects": 4,
+      "projectImgs": 4
+    },
+    "ar-1440": {
+      "lang": "ar",
+      "dir": "rtl",
+      "overflow": 0,
+      "h1": "تصميمٌ بصري يوقف\n التمرير من أول ثانية",
+      "body": "rgb(243, 234, 218)",
+      "video": true,
+      "projects": 4,
+      "projectImgs": 4
+    },
+    "en-390": {
+      "lang": "en",
+      "dir": "ltr",
+      "overflow": 0,
+      "h1": "Visual design that stops\n the scroll in one second",
+      "body": "rgb(243, 234, 218)",
+      "video": true,
+      "projects": 4,
+      "projectImgs": 4
+    },
+    "en-768": {
+      "lang": "en",
+      "dir": "ltr",
+      "overflow": 0,
+      "h1": "Visual design that stops\n the scroll in one second",
+      "body": "rgb(243, 234, 218)",
+      "video": true,
+      "projects": 4,
+      "projectImgs": 4
+    },
+    "en-1440": {
+      "lang": "en",
+      "dir": "ltr",
+      "overflow": 0,
+      "h1": "Visual design that stops\n the scroll in one second",
+      "body": "rgb(243, 234, 218)",
+      "video": true,
+      "projects": 4,
+      "projectImgs": 4
+    },
+    "titleCard": {
+      "titleOnce": {
+        "hidden": true,
+        "seen": "1",
+        "display": "none"
+      },
+      "titleSecond": {
+        "hidden": true,
+        "seen": "1"
+      },
+      "titleSkip": {
+        "hidden": true,
+        "seen": "1"
+      }
+    },
+    "reducedMotion": {
+      "titleDisplay": "none",
+      "marquee": "none",
+      "petals": "none"
+    },
+    "stats": {
+      "statsAr": [
+        "٦٠+",
+        "٥",
+        "٢٤/٧",
+        "١٠٠٪"
+      ],
+      "statsEn": [
+        "60+",
+        "5",
+        "24/7",
+        "100%"
+      ],
+      "statsAr2": [
+        "٦٠+",
+        "٥",
+        "٢٤/٧",
+        "١٠٠٪"
+      ]
+    },
+    "slider": {
+      "before": "50",
+      "after": "55"
+    },
+    "lightbox": {
+      "eddah": {
+        "open": true,
+        "figs": 6,
+        "active": "lightboxClose"
+      },
+      "nuzul": {
+        "open": true,
+        "figs": 6,
+        "active": "lightboxClose"
+      },
+      "nasaq": {
+        "open": true,
+        "figs": 6,
+        "active": "lightboxClose"
+      },
+      "dimora": {
+        "open": true,
+        "figs": 6,
+        "active": "lightboxClose"
+      }
+    },
+    "whatsapp": [
+      "https://wa.me/966502305331?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%20%D8%A3%D8%AB%D9%8A%D8%B1%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%A3%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D8%A8%D8%AE%D8%B5%D9%88%D8%B5%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D8%A8%D8%B5%D8%B1%D9%8A%20%D8%A8%D8%A7%D9%84%D8%B0%D9%83%D8%A7%D8%A1%20%D8%A7%D9%84%D8%A7%D8%B5%D8%B7%D9%86%D8%A7%D8%B9%D9%8A.",
+      "https://wa.me/966502305331?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%20%D8%A3%D8%AB%D9%8A%D8%B1%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%A3%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D8%A8%D8%AE%D8%B5%D9%88%D8%B5%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D8%A8%D8%B5%D8%B1%D9%8A%20%D8%A8%D8%A7%D9%84%D8%B0%D9%83%D8%A7%D8%A1%20%D8%A7%D9%84%D8%A7%D8%B5%D8%B7%D9%86%D8%A7%D8%B9%D9%8A.",
+      "https://wa.me/966502305331?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%20%D8%A3%D8%AB%D9%8A%D8%B1%D8%8C%20%D8%B9%D9%86%D8%AF%D9%8A%20%D9%85%D8%B4%D8%B1%D9%88%D8%B9%20%D9%88%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D8%A8%D8%B5%D8%B1%D9%8A%20%D9%8A%D9%84%D9%8A%D9%82%20%D9%81%D9%8A%D9%87.",
+      "https://wa.me/966502305331?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%20%D8%A3%D8%AB%D9%8A%D8%B1%D8%8C%20%D8%A3%D8%AD%D8%AA%D8%A7%D8%AC%20%D8%A3%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D8%A8%D8%AE%D8%B5%D9%88%D8%B5%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D8%A8%D8%B5%D8%B1%D9%8A%20%D8%A8%D8%A7%D9%84%D8%B0%D9%83%D8%A7%D8%A1%20%D8%A7%D9%84%D8%A7%D8%B5%D8%B7%D9%86%D8%A7%D8%B9%D9%8A."
+    ],
+    "languageToggle": {
+      "first": {
+        "lang": "en",
+        "dir": "ltr",
+        "h1": "Visual design that stops\n the scroll in one second"
+      },
+      "persist": {
+        "lang": "en",
+        "dir": "ltr",
+        "h1": "Visual design that stops\n the scroll in one second"
+      }
+    }
+  },
+  "console": [],
+  "network": []
+}
