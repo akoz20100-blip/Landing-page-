@@ -1,39 +1,94 @@
 const fs=require("fs");
 const path=require("path");
-const SRC=__dirname+path.sep;                                   // _source/
-const T=SRC+"template.html";                                    // edit this
+
+const SRC=__dirname+path.sep;
+const T=SRC+"template.html";
 const FD=path.resolve(__dirname,"../../eddah/fonts/thmanyah")+path.sep;
-const OUTDIR=path.resolve(__dirname,"..")+path.sep;             // landing-pages/atheer/
+const OUTDIR=path.resolve(__dirname,"..")+path.sep;
+const IMGDIR=OUTDIR+"assets/img/";
 const VID=OUTDIR+"assets/hero.mp4";
-const IMGDIR=OUTDIR+"assets/img/";                             // Atheer real images live here
 const tpl=fs.readFileSync(T,"utf8");
-// Atheer's real images — optimized WebP in assets/img/ (external + relative in BOTH builds,
-// lazy-loaded; keeps index.html small instead of base64-bloating it by ~0.5MB).
-const imgMap={
-  __IMG_ABOUT__:"assets/img/studio-moodboard.webp",
-  __IMG_ENHANCE__:"assets/img/bloom-portrait.webp",
-  __IMG_W1__:"assets/img/ai-gallery.webp",
-  __IMG_W2__:"assets/img/designer-desk.webp",
-  __IMG_W3__:"assets/img/canvas-bloom.webp",
-  __IMG_W4__:"assets/img/studio-moodboard.webp",
-  __IMG_W5__:"assets/img/ai-gallery.webp",
-  __IMG_W6__:"assets/img/bloom-portrait.webp",
-  __IMG_CTA__:"assets/img/canvas-bloom.webp"
+
+const mime={
+  ".webp":"image/webp",
+  ".mp4":"video/mp4",
+  ".woff2":"font/woff2"
 };
-let work=tpl;
-for(const k in imgMap) work=work.split(k).join(imgMap[k]);
-const fontFiles={__F_SANS_L__:"thmanyahsans-Light.woff2",__F_SANS_R__:"thmanyahsans-Regular.woff2",__F_SANS_M__:"thmanyahsans-Medium.woff2",__F_SANS_B__:"thmanyahsans-Bold.woff2",__F_SERIF_R__:"thmanyahserifdisplay-Regular.woff2",__F_SERIF_B__:"thmanyahserifdisplay-Bold.woff2"};
-const base="https://akoz20100-blip.github.io/Landing-page-/landing-pages/eddah/fonts/thmanyah/";
-const fontURL={__F_SANS_L__:base+"thmanyahsans-Light.woff2",__F_SANS_R__:base+"thmanyahsans-Regular.woff2",__F_SANS_M__:base+"thmanyahsans-Medium.woff2",__F_SANS_B__:base+"thmanyahsans-Bold.woff2",__F_SERIF_R__:base+"thmanyahserifdisplay-Regular.woff2",__F_SERIF_B__:base+"thmanyahserifdisplay-Bold.woff2"};
-// self-contained (base64 fonts + video)
-let a=work;
-for(const k in fontFiles) a=a.split(k).join("data:font/woff2;base64,"+fs.readFileSync(FD+fontFiles[k]).toString("base64"));
-a=a.split("__VIDEO__").join("data:video/mp4;base64,"+fs.readFileSync(VID).toString("base64"));
-fs.writeFileSync(OUTDIR+"index.html",a);
-// source (external URLs + relative video)
-let b=work.replace("<head>","<head>\n<!-- Reference build: external Thmanyah fonts + relative video + relative WebP images. -->");
-for(const k in fontURL) b=b.split(k).join(fontURL[k]);
-b=b.split("__VIDEO__").join("assets/hero.mp4");
-fs.writeFileSync(OUTDIR+"index.source.html",b);
-const rem=(a.match(/__[A-Z_]+__/g)||[]).concat(b.match(/__[A-Z_]+__/g)||[]);
-console.log("built. index.html:",(fs.statSync(OUTDIR+"index.html").size/1024/1024).toFixed(2)+"MB | source:",(fs.statSync(OUTDIR+"index.source.html").size/1024).toFixed(0)+"KB | leftover:",rem.length);
+const dataUri=file=>{
+  const ext=path.extname(file).toLowerCase();
+  return `data:${mime[ext]||"application/octet-stream"};base64,${fs.readFileSync(file).toString("base64")}`;
+};
+
+const fontFiles={
+  __F_SANS_L__:"thmanyahsans-Light.woff2",
+  __F_SANS_R__:"thmanyahsans-Regular.woff2",
+  __F_SANS_M__:"thmanyahsans-Medium.woff2",
+  __F_SANS_B__:"thmanyahsans-Bold.woff2",
+  __F_SERIF_R__:"thmanyahserifdisplay-Regular.woff2",
+  __F_SERIF_B__:"thmanyahserifdisplay-Bold.woff2"
+};
+const fontBase="https://akoz20100-blip.github.io/Landing-page-/landing-pages/eddah/fonts/thmanyah/";
+const images={
+  __IMG_OG__:"og.webp",
+  __IMG_HERO_POSTER__:"hero-poster.webp",
+  __IMG_IDENTITY_PORTRAIT__:"identity-portrait.webp",
+  __IMG_IDENTITY_LANDSCAPE__:"identity-landscape.webp",
+  __IMG_SLIDER_BEFORE__:"slider-before.webp",
+  __IMG_SLIDER_AFTER__:"slider-after.webp",
+  __IMG_EDDAH_01__:"eddah-01.webp",
+  __IMG_EDDAH_02__:"eddah-02.webp",
+  __IMG_EDDAH_03__:"eddah-03.webp",
+  __IMG_EDDAH_04__:"eddah-04.webp",
+  __IMG_EDDAH_05__:"eddah-05.webp",
+  __IMG_EDDAH_06__:"eddah-06.webp",
+  __IMG_NUZUL_01__:"nuzul-01.webp",
+  __IMG_NUZUL_02__:"nuzul-02.webp",
+  __IMG_NUZUL_03__:"nuzul-03.webp",
+  __IMG_NUZUL_04__:"nuzul-04.webp",
+  __IMG_NUZUL_05__:"nuzul-05.webp",
+  __IMG_NUZUL_06__:"nuzul-06.webp",
+  __IMG_NASAQ_01__:"nasaq-01.webp",
+  __IMG_NASAQ_02__:"nasaq-02.webp",
+  __IMG_NASAQ_03__:"nasaq-03.webp",
+  __IMG_NASAQ_04__:"nasaq-04.webp",
+  __IMG_NASAQ_05__:"nasaq-05.webp",
+  __IMG_NASAQ_06__:"nasaq-06.webp",
+  __IMG_DIMORA_01__:"dimora-01.webp",
+  __IMG_DIMORA_02__:"dimora-02.webp",
+  __IMG_DIMORA_03__:"dimora-03.webp",
+  __IMG_DIMORA_04__:"dimora-04.webp",
+  __IMG_DIMORA_05__:"dimora-05.webp",
+  __IMG_DIMORA_06__:"dimora-06.webp"
+};
+
+let source=tpl.replace("<head>","<head>\n<!-- Reference build: external Thmanyah fonts + relative video + relative WebP images. -->");
+for(const [token,file] of Object.entries(fontFiles)){
+  source=source.split(token).join(fontBase+file);
+}
+source=source.split("__VIDEO__").join("assets/hero.mp4");
+for(const [token,file] of Object.entries(images)){
+  source=source.split(token).join("assets/img/"+file);
+}
+fs.writeFileSync(OUTDIR+"index.source.html",source);
+
+let standalone=tpl;
+for(const [token,file] of Object.entries(fontFiles)){
+  standalone=standalone.split(token).join(dataUri(FD+file));
+}
+standalone=standalone.split("__VIDEO__").join(dataUri(VID));
+for(const [token,file] of Object.entries(images)){
+  standalone=standalone.split(token).join(dataUri(IMGDIR+file));
+}
+fs.writeFileSync(OUTDIR+"index.html",standalone);
+
+const leftovers=[...(source.match(/__[A-Z0-9_]+__/g)||[]),...(standalone.match(/__[A-Z0-9_]+__/g)||[])];
+if(leftovers.length){
+  throw new Error(`Unresolved build tokens: ${[...new Set(leftovers)].join(", ")}`);
+}
+const mb=bytes=>(bytes/1024/1024).toFixed(2)+"MB";
+const kb=bytes=>(bytes/1024).toFixed(0)+"KB";
+const standaloneSize=fs.statSync(OUTDIR+"index.html").size;
+const sourceSize=fs.statSync(OUTDIR+"index.source.html").size;
+console.log(`built. index.html: ${mb(standaloneSize)} | source: ${kb(sourceSize)} | images: ${Object.keys(images).length} | leftover: 0`);
+if(standaloneSize>12*1024*1024) throw new Error("index.html exceeds 12MB");
+if(sourceSize>90*1024) throw new Error("index.source.html exceeds 90KB");
