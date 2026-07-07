@@ -1,6 +1,6 @@
 {
   "cleanUrls": true,
-  "rewrites": [
-    { "source": "/", "destination": "/landing-pages/atheer/index.html" }
+  "redirects": [
+    { "source": "/", "destination": "/landing-pages/atheer/", "permanent": false }
   ]
 }

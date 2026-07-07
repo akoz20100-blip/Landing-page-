@@ -3,7 +3,7 @@ const path=require("path");
 
 const SRC=__dirname+path.sep;
 const T=SRC+"template.html";
-const FD=path.resolve(__dirname,"../../eddah/fonts/thmanyah")+path.sep;
+const FD=path.resolve(__dirname,"../assets/fonts")+path.sep;
 const OUTDIR=path.resolve(__dirname,"..")+path.sep;
 const IMGDIR=OUTDIR+"assets/img/";
 const VID=OUTDIR+"assets/hero.mp4";
@@ -27,9 +27,9 @@ const fontFiles={
   __F_SERIF_R__:"thmanyahserifdisplay-Regular.woff2",
   __F_SERIF_B__:"thmanyahserifdisplay-Bold.woff2"
 };
-const fontBase="https://akoz20100-blip.github.io/Landing-page-/landing-pages/eddah/fonts/thmanyah/";
+const fontBase="assets/fonts/";
+const OG_ABS="https://akoz20100-blip.github.io/Landing-page-/landing-pages/atheer/assets/img/og.webp";
 const images={
-  __IMG_OG__:"og.webp",
   __IMG_HERO_POSTER__:"hero-poster.webp",
   __IMG_IDENTITY_PORTRAIT__:"identity-portrait.webp",
   __IMG_IDENTITY_LANDSCAPE__:"identity-landscape.webp",
@@ -61,7 +61,7 @@ const images={
   __IMG_DIMORA_06__:"dimora-06.webp"
 };
 
-let source=tpl.replace("<head>","<head>\n<!-- Reference build: external Thmanyah fonts + relative video + relative WebP images. -->");
+let source=tpl.replace("<head>","<head>\n<!-- Deployed build: external Thmanyah fonts + relative video + relative WebP images. standalone.html is the offline single-file variant. -->");
 for(const [token,file] of Object.entries(fontFiles)){
   source=source.split(token).join(fontBase+file);
 }
@@ -69,7 +69,8 @@ source=source.split("__VIDEO__").join("assets/hero.mp4");
 for(const [token,file] of Object.entries(images)){
   source=source.split(token).join("assets/img/"+file);
 }
-fs.writeFileSync(OUTDIR+"index.source.html",source);
+source=source.split("__OG_ABS__").join(OG_ABS);
+fs.writeFileSync(OUTDIR+"index.html",source);
 
 let standalone=tpl;
 for(const [token,file] of Object.entries(fontFiles)){
@@ -79,7 +80,8 @@ standalone=standalone.split("__VIDEO__").join(dataUri(VID));
 for(const [token,file] of Object.entries(images)){
   standalone=standalone.split(token).join(dataUri(IMGDIR+file));
 }
-fs.writeFileSync(OUTDIR+"index.html",standalone);
+standalone=standalone.split("__OG_ABS__").join(OG_ABS);
+fs.writeFileSync(OUTDIR+"standalone.html",standalone);
 
 const leftovers=[...(source.match(/__[A-Z0-9_]+__/g)||[]),...(standalone.match(/__[A-Z0-9_]+__/g)||[])];
 if(leftovers.length){
@@ -87,8 +89,8 @@ if(leftovers.length){
 }
 const mb=bytes=>(bytes/1024/1024).toFixed(2)+"MB";
 const kb=bytes=>(bytes/1024).toFixed(0)+"KB";
-const standaloneSize=fs.statSync(OUTDIR+"index.html").size;
-const sourceSize=fs.statSync(OUTDIR+"index.source.html").size;
-console.log(`built. index.html: ${mb(standaloneSize)} | source: ${kb(sourceSize)} | images: ${Object.keys(images).length} | leftover: 0`);
-if(standaloneSize>12*1024*1024) throw new Error("index.html exceeds 12MB");
-if(sourceSize>90*1024) throw new Error("index.source.html exceeds 90KB");
+const standaloneSize=fs.statSync(OUTDIR+"standalone.html").size;
+const sourceSize=fs.statSync(OUTDIR+"index.html").size;
+console.log(`built. standalone.html: ${mb(standaloneSize)} | index.html: ${kb(sourceSize)} | images: ${Object.keys(images).length} | leftover: 0`);
+if(standaloneSize>12*1024*1024) throw new Error("standalone.html exceeds 12MB");
+if(sourceSize>90*1024) throw new Error("index.html exceeds 90KB");
