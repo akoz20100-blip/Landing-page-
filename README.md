@@ -3,7 +3,7 @@
 معرض صفحات الهبوط الاحترافية، مُستضاف على GitHub Pages. كل مشروع في مجلده الخاص
 داخل `landing-pages/` ليسهل عرضه ومشاركته مع العملاء وتطويره مستقبلًا.
 
-**الرابط المباشر:** https://akoz20100-blip.github.io/
+**الرابط المباشر:** https://akoz20100-blip.github.io/Landing-page-/
 
 ## البنية / Structure
 
@@ -16,18 +16,22 @@
     │   └── _source/           ← المشروع الكامل القابل للتعديل + كل المراجع
     │       ├── src/ · public/ · docs/ · package.json …
     │       └── references/    ← الصور والفيديو والشعار الأصلية (مراجع التصميم)
-    └── eddah/                 ← عُدّة — الصيانة المنزلية (Next.js static export)
-        ├── index.html · _next/ · brand/ …
-        └── sadim-*/           ← نسخ بألوان بديلة (تجارب)
+    ├── jamal-v2/              ← جمال v2 (Vite + React)
+    ├── eddah/                 ← عُدّة — الصيانة المنزلية (Next.js static export)
+    │   ├── index.html · _next/ · brand/ …
+    │   └── sadim-*/           ← نسخ بألوان بديلة (تجارب)
+    └── atheer/                ← أثير الزهراني — هوية بصرية (ثابت HTML مبني عبر _source/build.js)
 ```
 
 ## العناوين المباشرة / Live URLs
 
 | الموقع | الرابط |
 |--------|--------|
-| المعرض الرئيسي | https://akoz20100-blip.github.io/ |
-| جمال (JAMAL) | https://akoz20100-blip.github.io/landing-pages/jamal/ |
-| عُدّة (Eddah) | https://akoz20100-blip.github.io/landing-pages/eddah/ |
+| المعرض الرئيسي | https://akoz20100-blip.github.io/Landing-page-/ |
+| جمال (JAMAL) | https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal/ |
+| جمال v2 (JAMAL v2) | https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal-v2/ |
+| عُدّة (Eddah) | https://akoz20100-blip.github.io/Landing-page-/landing-pages/eddah/ |
+| أثير الزهراني | https://akoz20100-blip.github.io/Landing-page-/landing-pages/atheer/ |
 
 ## إضافة موقع هبوط جديد / Add a new landing page
 
