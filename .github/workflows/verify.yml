@@ -1,0 +1,39 @@
+name: verify
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  mcp-server:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: psmmc-military/packages/mcp-server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: psmmc-military/packages/mcp-server/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+  atheer-build-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node landing-pages/atheer/_source/build.js
+      - name: committed output must match rebuilt output
+        run: git diff --exit-code -- landing-pages/atheer/
+  gallery-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/check-gallery-assets.mjs
