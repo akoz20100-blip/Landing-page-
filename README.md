@@ -1,9 +1,28 @@
+# Landing Pages — Website Gallery
+
+Website projects collected in one repository, each in its own folder.
+
+## Start here · ابدأ هنا
+
+**Current merged version: [`main`](https://github.com/akoz20100-blip/Landing-page-/tree/main).**
+
+- [Gallery source](index.html)
+- [All website folders](landing-pages)
+- [Jamal v2](landing-pages/jamal-v2)
+- [Eddah](landing-pages/eddah)
+- [Atheer](landing-pages/atheer)
+
+The project-page address is https://akoz20100-blip.github.io/Landing-page-/ (capital L). Jamal and Jamal v2 are distinct versions, with editable source retained under `_source/`. Built assets are required for hosting and are not disposable duplicates. The Atheer development branch remains unmerged. The PSMMC stub has unique server code; [PR #4](https://github.com/akoz20100-blip/Landing-page-/pull/4) remains pending.
+
+<details>
+<summary>Technical documentation and project background · التفاصيل التقنية</summary>
+
 # مواقع الهبوط — Landing Pages
 
 معرض صفحات الهبوط الاحترافية، مُستضاف على GitHub Pages. كل مشروع في مجلده الخاص
 داخل `landing-pages/` ليسهل عرضه ومشاركته مع العملاء وتطويره مستقبلًا.
 
-**الرابط المباشر:** https://akoz20100-blip.github.io/
+**الرابط المباشر:** https://akoz20100-blip.github.io/Landing-page-/
 
 ## البنية / Structure
 
@@ -25,9 +44,9 @@
 
 | الموقع | الرابط |
 |--------|--------|
-| المعرض الرئيسي | https://akoz20100-blip.github.io/ |
-| جمال (JAMAL) | https://akoz20100-blip.github.io/landing-pages/jamal/ |
-| عُدّة (Eddah) | https://akoz20100-blip.github.io/landing-pages/eddah/ |
+| المعرض الرئيسي | https://akoz20100-blip.github.io/Landing-page-/ |
+| جمال (JAMAL) | https://akoz20100-blip.github.io/Landing-page-/landing-pages/jamal/ |
+| عُدّة (Eddah) | https://akoz20100-blip.github.io/Landing-page-/landing-pages/eddah/ |
 
 ## إضافة موقع هبوط جديد / Add a new landing page
 
@@ -53,3 +72,5 @@ npm run build                   # يبني إلى dist/ بالمسار /landing-
 `_source/src/lib/asset.ts`.
 
 > ملاحظة: `.nojekyll` في الجذر يمنع معالجة Jekyll حتى تُخدَم مجلدات `_next` و`_source`.
+
+</details>
